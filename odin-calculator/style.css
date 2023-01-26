@@ -54,7 +54,7 @@ button {
     gap: 8px;
 }
 
-#equalBtn {
+#btnEqual {
     grid-column: 4;
     grid-row: 4/6;
 }
