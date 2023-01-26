@@ -1,5 +1,5 @@
 function calculate(operator, num1, num2) {
-    console.log("calculate->",typeof operator, typeof num1, typeof num2);
+    // console.log("calculate->", typeof operator, typeof num1, typeof num2);
     switch (operator) {
         case "+":
             return num1 + num2;
@@ -14,7 +14,7 @@ function calculate(operator, num1, num2) {
             break;
     }
 }
-
+// not working correctly, num1,num2, operatorCurrent is not updated 
 function clear() {
     console.log("del last char");
     let str = displayLine2.innerText;
@@ -31,67 +31,71 @@ function allClear() {
     operatorCurrent = undefined;
 }
 
-function concat(a,b){
+function concat(a, b) {
     if (a == null) {
         return b
     } else {
-        return a.toString()+b.toString();
+        return a.toString() + b.toString();
     }
-    
 
+
+}
+
+function isLastCharOperation() {
+    console.log("isLastCharOperation: ",displayValue);
+    let lastChar = displayValue.charAt(displayValue.length - 1);
+    if (lastChar == "+" || lastChar == "-" || lastChar == "*" || lastChar == "/") {
+        return true;
+    }
 }
 
 //updates displayValue varibale and display
-function updateValue(num) {
-
-    if (!operatorCurrent) {
-        num1 = concat(num1, num);
-        displayValue = num1;
+function pressedNumber(str) {
+    // console.log("displayValue",displayValue)
+    if (displayValue == "0") {
+        displayValue = str;
+    } else if (isLastCharOperation()) {
+        num2 += str;
+        displayValue += str;
+    } else if (operatorCurrent) {
+        num2 += str;
+        displayValue += str;
     } else {
-        num2 = concat(num2, num);
-        displayValue = num1 + operatorCurrent + num2
+        displayValue += str;
     }
+    updateDisplay(displayValue);
+
     console.log(`num1: ${num1}, num2: ${num2}, oper: ${operatorCurrent}`)
     console.log("displayValue:", displayValue);
-    updateDisplay(displayValue);
 }
 
-function storeOperator(oper) {
-    displayValue = displayLine2.innerText;
-    // store num1
-    // if !operator, store operator
-    let lastChar = displayValue.charAt(displayValue.length - 1);
-    console.log("lastChar", lastChar)
-    if (!lastChar) {
-        console.log("not adding", oper);
-    } else if (lastChar == "+" || lastChar == "-" || lastChar == "*" || lastChar == "/" || lastChar == ".") {
-        // console.log("change oper,lastChar",lastChar);
-        // console.log(displayValue.charAt(displayValue.length-1),">>", oper);
-        clear()
-        displayValue += oper;
-        updateDisplay(displayValue);
-    } else {
-        // console.log("zadnji znak nije operator", lastChar);
-        if (!operatorCurrent) {
-            // console.log("!operatorCurrent");
+function pressedOperation(oper) {
+    if (!isLastCharOperation()) {
+        if (!num1) {
+            // console.log("num1 == null")
+            num1 = displayValue;
             operatorCurrent = oper;
             displayValue += oper;
             updateDisplay(displayValue);
-            // updateValue(oper);
         } else {
-            // console.log("operatorCurrent ... else");
-            // console.log(displayValue.split(operatorCurrent));
-            // console.log(`num1: ${num1}, num2: ${num2}, oper: ${operatorCurrent}`)
-            let result = calculate(operatorCurrent, parseInt(num1), parseInt(num2));
-            // console.log("res",result);
-            num1 = result;
-            num2 = null;
+            pressedEqual();
             operatorCurrent = oper;
-            displayValue = result + oper;
+            displayValue += oper;
             updateDisplay(displayValue);
         }
+    } else {
+        console.log("do nothing");
     }
-    // if operator, store num2, calculate, set num1 to res, store new operator
+}
+
+function pressedEqual() {
+    console.log("pressedEqual()")
+    if (num1 && operatorCurrent && num2) {
+        displayValue = calculate(operatorCurrent, parseFloat(num1), parseFloat(num2)).toString();
+        num1 = displayValue;
+        num2 = "";
+        updateDisplay(displayValue);
+    }
 
 }
 
@@ -108,53 +112,53 @@ function changePolarity() {
 
 
 function onClick(e) {
-    console.log("pressed: ",e.target.innerText);
+    console.log("pressed: ", e.target.innerText);
 
     switch (e.target.innerText) {
         case "1":
-            updateValue(1);
+            pressedNumber("1");
             break;
         case "2":
-            updateValue(2);
+            pressedNumber("2");
             break;
         case "3":
-            updateValue(3);
+            pressedNumber("3");
             break;
         case "4":
-            updateValue(4);
+            pressedNumber("4");
             break;
         case "5":
-            updateValue(5);
+            pressedNumber("5");
             break;
         case "6":
-            updateValue(6);
+            pressedNumber("6");
             break;
         case "7":
-            updateValue(7);
+            pressedNumber("7");
             break;
         case "8":
-            updateValue(8);
+            pressedNumber("8");
             break;
         case "9":
-            updateValue(9);
+            pressedNumber("9");
             break;
         case "0":
-            updateValue(0);
+            pressedNumber("0");
             break;
         case "+":
-            storeOperator("+");
+            pressedOperation("+");
             break;
         case "-":
-            storeOperator("-");
+            pressedOperation("-");
             break;
         case "*":
-            storeOperator("*");
+            pressedOperation("*");
             break;
         case "/":
-            storeOperator("/");
+            pressedOperation("/");
             break;
         case ".":
-            storeOperator(".");
+            pressedOperation(".");
             break;
         case "C":
             clear();
@@ -166,7 +170,7 @@ function onClick(e) {
             changePolarity();
             break;
         case "=":
-            calculate();
+            pressedEqual();
             break;
 
         default:
@@ -177,8 +181,9 @@ function onClick(e) {
 const displayLine1 = document.querySelector("#line1");
 const displayLine2 = document.querySelector("#line2");
 let displayValue = displayLine2.innerText;
-let num1 = null;
-let num2 = null;
+let num1 = "";
+let num2 = "";
+let numTemp = "";
 let operatorCurrent;
 
 document.querySelector(".buttons").addEventListener("click", onClick);
