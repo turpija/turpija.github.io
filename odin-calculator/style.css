@@ -54,6 +54,9 @@ button {
     gap: 8px;
 }
 
+.buttons button:hover {
+    background-color: rgb(85, 204, 174);}
+
 #btnEqual {
     grid-column: 4;
     grid-row: 4/6;
@@ -61,6 +64,7 @@ button {
 
 .display {
     background-color: rgb(73, 175, 149);
+    /* background-color: rgb(64, 64, 64); */
     margin-bottom: 20px;
     margin-top: -15px;
     color: white;
