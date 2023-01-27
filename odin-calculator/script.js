@@ -7,7 +7,12 @@ let num2 = "";
 let numTemp = "";
 let operatorCurrent;
 
-document.querySelector(".buttons").addEventListener("click", onClick);
+const allButtons = document.querySelectorAll("button");
+allButtons.forEach(btn => {
+    btn.addEventListener("click", onClick);
+})
+
+window.addEventListener("keydown", onClick);
 
 //perform calculation
 function calculate(operator, num1, num2) {
@@ -88,7 +93,6 @@ function containDecimal() {
     }
 }
 
-
 //updates displayValue varibale and display
 function pressedNumber(str) {
     // console.log("displayValue",displayValue)
@@ -108,17 +112,14 @@ function pressedNumber(str) {
 }
 
 //  toggle value +/- of num2value and update display
-function toggleValueOfNum2(){
+function toggleValueOfNum2() {
     // displayValue ... +/- num2
     let num2value = displayValue.replace(num1, "").replace(operatorCurrent, "");
-    toggledNum2 = (num2value*-1).toString();
+    toggledNum2 = (num2value * -1).toString();
     //remove from display
     //add new in display
-    displayValue = displayValue.slice(0,displayValue.length-num2value.length)+toggledNum2;
+    displayValue = displayValue.slice(0, displayValue.length - num2value.length) + toggledNum2;
     updateDisplay(displayValue);
-
-
-
 }
 
 function setNum2() {
@@ -185,7 +186,7 @@ function pressedEqual() {
     updateDisplay(displayValue);
 }
 
-
+// update Displays
 function updateDisplay(str) {
     displayLine2.innerText = str;
 }
@@ -224,9 +225,16 @@ function pressedPolarity() {
 
 //buton is pressed
 function onClick(e) {
-    console.log("pressed: ", e.target.innerText);
+    let value;
+    if (e instanceof KeyboardEvent) {
+        value = e.key;
+    } else if (e instanceof PointerEvent) {
+        value = e.target.innerText;
+    }
 
-    switch (e.target.innerText) {
+    console.log("pressed:", value);
+
+    switch (value) {
         case "1":
             pressedNumber("1");
             break;
@@ -270,6 +278,7 @@ function onClick(e) {
             pressedOperation("/");
             break;
         case ".":
+        case ",":
             pressedDecimal(".");
             break;
         case "C":
@@ -282,6 +291,7 @@ function onClick(e) {
             pressedPolarity();
             break;
         case "=":
+        case "Enter":
             pressedEqual();
             break;
 
