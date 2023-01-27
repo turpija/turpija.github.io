@@ -1,6 +1,7 @@
 const displayLine1 = document.querySelector("#line1");
 const displayLine2 = document.querySelector("#line2");
-let displayValue = displayLine2.innerText;
+let displayHistory = displayLine1.innerText = "";
+let displayValue = displayLine2.innerText = "0";
 let num1 = "";
 let num2 = "";
 let numTemp = "";
@@ -38,8 +39,9 @@ function clear() {
 //clear display and all variables
 function allClear() {
     console.log("all clear display");
-    displayValue = ""
+    displayValue = "0"
     updateDisplay(displayValue);
+    updateDisplayHistory("");
     num1 = null;
     num2 = null;
     operatorCurrent = undefined;
@@ -50,6 +52,20 @@ function isLastCharOperation() {
     // console.log("isLastCharOperation: ", displayValue);
     let lastChar = displayValue.charAt(displayValue.length - 1);
     if (lastChar == "+" || lastChar == "-" || lastChar == "*" || lastChar == "/") {
+        return true;
+    }
+}
+
+function isLastCharNum() {
+    let lastChar = displayValue.charAt(displayValue.length - 1);
+    if (typeof (lastChar) === "string") {
+        return true;
+    }
+}
+
+function isLastCharMinus() {
+    let lastChar = displayValue.charAt(displayValue.length - 1);
+    if (lastChar == "-") {
         return true;
     }
 }
@@ -91,7 +107,20 @@ function pressedNumber(str) {
     // console.log("displayValue:", displayValue);
 }
 
-// parse display and sets num2 variable
+//  toggle value +/- of num2value and update display
+function toggleValueOfNum2(){
+    // displayValue ... +/- num2
+    let num2value = displayValue.replace(num1, "").replace(operatorCurrent, "");
+    toggledNum2 = (num2value*-1).toString();
+    //remove from display
+    //add new in display
+    displayValue = displayValue.slice(0,displayValue.length-num2value.length)+toggledNum2;
+    updateDisplay(displayValue);
+
+
+
+}
+
 function setNum2() {
     let reducedStr = displayValue.replace(num1, "").replace(operatorCurrent, "");
     if (!num2) {
@@ -107,6 +136,10 @@ function pressedOperation(oper) {
         if (!num1) {
             // console.log("num1 == null")
             num1 = displayValue;
+            operatorCurrent = oper;
+            displayValue += oper;
+            updateDisplay(displayValue);
+        } else if (!operatorCurrent) {
             operatorCurrent = oper;
             displayValue += oper;
             updateDisplay(displayValue);
@@ -142,6 +175,7 @@ function pressedEqual() {
     if (!num2) {
         setNum2();
     }
+    updateDisplayHistory(displayValue);
     result = calculate(operatorCurrent, parseFloat(num1), parseFloat(num2)).toFixed(2);
     result *= 1;
     displayValue = result.toString();
@@ -156,12 +190,39 @@ function updateDisplay(str) {
     displayLine2.innerText = str;
 }
 
+function updateDisplayHistory(str) {
+    displayLine1.innerText = str;
+}
+
 // negative/postive button pressed
 function pressedPolarity() {
+    // if 0 -> zamjeni s -
+    // if number -> *-1
+    // if operation -> dodaj predznak
+    // if operation - -> makni predznak
+    // if number+operation+number -> num2*-1
+
+    if (displayValue === "0") {
+        displayValue = "-";
+    } else if (num1 && operatorCurrent && isLastCharNum()) {
+        console.log("num1 && oper && lastCharNum");
+        toggleValueOfNum2();
+    } else if (isLastCharNum()) {
+        console.log("last char is num");
+        displayValue = (displayValue * -1).toString();
+    } else if (isLastCharOperation()) {
+        console.log("last char is operation");
+        displayValue += "-";
+    } else if (isLastCharMinus()) {
+        console.log("last char is -");
+        clear();
+    }
+
+    updateDisplay(displayValue);
     console.log("need to implement");
 }
 
-
+//buton is pressed
 function onClick(e) {
     console.log("pressed: ", e.target.innerText);
 
