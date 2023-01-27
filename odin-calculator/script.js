@@ -1,3 +1,14 @@
+const displayLine1 = document.querySelector("#line1");
+const displayLine2 = document.querySelector("#line2");
+let displayValue = displayLine2.innerText;
+let num1 = "";
+let num2 = "";
+let numTemp = "";
+let operatorCurrent;
+
+document.querySelector(".buttons").addEventListener("click", onClick);
+
+//perform calculation
 function calculate(operator, num1, num2) {
     // console.log("calculate->", typeof operator, typeof num1, typeof num2);
     switch (operator) {
@@ -14,7 +25,9 @@ function calculate(operator, num1, num2) {
             break;
     }
 }
-// not working correctly, num1,num2, operatorCurrent is not updated 
+
+
+// clear last typed character
 function clear() {
     console.log("del last char");
     let str = displayLine2.innerText;
@@ -22,6 +35,7 @@ function clear() {
     updateDisplay(displayValue);
 }
 
+//clear display and all variables
 function allClear() {
     console.log("all clear display");
     displayValue = ""
@@ -31,16 +45,7 @@ function allClear() {
     operatorCurrent = undefined;
 }
 
-function concat(a, b) {
-    if (a == null) {
-        return b
-    } else {
-        return a.toString() + b.toString();
-    }
-
-
-}
-
+//is last character operation
 function isLastCharOperation() {
     // console.log("isLastCharOperation: ", displayValue);
     let lastChar = displayValue.charAt(displayValue.length - 1);
@@ -49,10 +54,11 @@ function isLastCharOperation() {
     }
 }
 
+//if there is decimal point on display
 function containDecimal() {
     // console.log("does number already contains a decimal ?");
     if (num1 && operatorCurrent) {
-        console.log("-->", num1, operatorCurrent)
+        // console.log("-->", num1, operatorCurrent)
         let str = displayValue.replace(num1, "");
         if (str.includes(".")) {
             // console.log("already a decimal in second number, return true");
@@ -66,26 +72,36 @@ function containDecimal() {
     }
 }
 
+
 //updates displayValue varibale and display
 function pressedNumber(str) {
     // console.log("displayValue",displayValue)
     if (displayValue == "0") {
         displayValue = str;
-    } else if (isLastCharOperation()) {
+    } else if (isLastCharOperation() && operatorCurrent) {
         displayValue += str;
-    } else if (operatorCurrent) {
+    } else if (num1) {
         displayValue += str;
-        let reducedStr = displayValue.replace(num1, "").replace(operatorCurrent, "");
-        num2 += reducedStr;
     } else {
         displayValue += str;
     }
     updateDisplay(displayValue);
 
-    console.log(`num1: ${num1}, num2: ${num2}, oper: ${operatorCurrent}`)
-    console.log("displayValue:", displayValue);
+    // console.log(`num1: ${num1}, num2: ${num2}, oper: ${operatorCurrent}`)
+    // console.log("displayValue:", displayValue);
 }
 
+// parse display and sets num2 variable
+function setNum2() {
+    let reducedStr = displayValue.replace(num1, "").replace(operatorCurrent, "");
+    if (!num2) {
+        num2 = reducedStr;
+    } else {
+        num2 += reducedStr;
+    }
+}
+
+// some operation pressed 
 function pressedOperation(oper) {
     if (!isLastCharOperation()) {
         if (!num1) {
@@ -95,19 +111,19 @@ function pressedOperation(oper) {
             displayValue += oper;
             updateDisplay(displayValue);
         } else {
+            setNum2();
             pressedEqual();
             operatorCurrent = oper;
             displayValue += oper;
             updateDisplay(displayValue);
         }
-    } else {
-        console.log("do nothing");
     }
 }
 
+// decimal point pressed
 function pressedDecimal(str) {
     if (containDecimal()) {
-        console.log("decimal point already exist...");
+        // console.log("decimal point already exist...");
     } else {
         if (displayValue == 0) {
             displayValue += str;
@@ -120,25 +136,28 @@ function pressedDecimal(str) {
     }
 }
 
+// equal button pressed
 function pressedEqual() {
-    console.log("pressedEqual()")
-    if (num1 && operatorCurrent && num2) {
-        displayValue = calculate(operatorCurrent, parseFloat(num1), parseFloat(num2)).toFixed(2).toString();
-        num1 = displayValue;
-        num2 = "";
-        operatorCurrent = undefined;
-        updateDisplay(displayValue);
+    // console.log("pressedEqual()")
+    if (!num2) {
+        setNum2();
     }
-
+    result = calculate(operatorCurrent, parseFloat(num1), parseFloat(num2)).toFixed(2);
+    result *= 1;
+    displayValue = result.toString();
+    num1 = displayValue;
+    num2 = "";
+    operatorCurrent = undefined;
+    updateDisplay(displayValue);
 }
 
+
 function updateDisplay(str) {
-    // displayLine1.innerText = displayLine2.innerText;
     displayLine2.innerText = str;
 }
 
-
-function changePolarity() {
+// negative/postive button pressed
+function pressedPolarity() {
     console.log("need to implement");
 }
 
@@ -209,18 +228,3 @@ function onClick(e) {
             break;
     }
 }
-
-const displayLine1 = document.querySelector("#line1");
-const displayLine2 = document.querySelector("#line2");
-let displayValue = displayLine2.innerText;
-let num1 = "";
-let num2 = "";
-let numTemp = "";
-let operatorCurrent;
-
-document.querySelector(".buttons").addEventListener("click", onClick);
-
-// console.log("add 2+4=6,", operate("add", 2, 4));
-// console.log("subtract 7-9=-2,", operate("subtract", 7, 9));
-// console.log("multiply 3*4=12,", operate("multiply", 3, 4));
-// console.log("divide 8/2=4,", operate("divide", 8, 2));
