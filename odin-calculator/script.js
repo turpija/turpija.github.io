@@ -14,6 +14,7 @@ allButtons.forEach(btn => {
 
 window.addEventListener("keydown", onClick);
 
+
 //perform calculation
 function calculate(operator, num1, num2) {
     // console.log("calculate->", typeof operator, typeof num1, typeof num2);
@@ -223,6 +224,16 @@ function pressedPolarity() {
     console.log("need to implement");
 }
 
+//add & remove class for animate button
+function animateButton(selector) {
+    const element = document.querySelector(selector);
+    element.addEventListener("transitionend", () => {
+        element.classList.remove("btnActive");
+    })
+    element.classList.add("btnActive");
+}
+
+
 //buton is pressed
 function onClick(e) {
     let value;
@@ -236,62 +247,81 @@ function onClick(e) {
 
     switch (value) {
         case "1":
+            animateButton("#btn1");
             pressedNumber("1");
             break;
         case "2":
+            animateButton("#btn2");
             pressedNumber("2");
             break;
         case "3":
+            animateButton("#btn3");
             pressedNumber("3");
             break;
         case "4":
+            animateButton("#btn4");
             pressedNumber("4");
             break;
         case "5":
+            animateButton("#btn5");
             pressedNumber("5");
             break;
         case "6":
+            animateButton("#btn6");
             pressedNumber("6");
             break;
         case "7":
+            animateButton("#btn7");
             pressedNumber("7");
             break;
         case "8":
+            animateButton("#btn8");
             pressedNumber("8");
             break;
         case "9":
+            animateButton("#btn9");
             pressedNumber("9");
             break;
         case "0":
+            animateButton("#btn0");
             pressedNumber("0");
             break;
         case "+":
+            animateButton("#btnAdd");
             pressedOperation("+");
             break;
         case "-":
+            animateButton("#btnSub");
             pressedOperation("-");
             break;
         case "*":
+            animateButton("#btnMul");
             pressedOperation("*");
             break;
         case "/":
+            animateButton("#btnDiv");
             pressedOperation("/");
             break;
         case ".":
         case ",":
+            animateButton("#btnDec");
             pressedDecimal(".");
             break;
         case "C":
+            animateButton("#btnC");
             clear();
             break;
         case "AC":
+            animateButton("#btnAC");
             allClear();
             break;
         case "+/-":
+            animateButton("#btnPol");
             pressedPolarity();
             break;
         case "=":
         case "Enter":
+            animateButton("#btnEnter");
             pressedEqual();
             break;
 
