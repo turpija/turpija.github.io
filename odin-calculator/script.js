@@ -42,10 +42,27 @@ function concat(a, b) {
 }
 
 function isLastCharOperation() {
-    console.log("isLastCharOperation: ",displayValue);
+    // console.log("isLastCharOperation: ", displayValue);
     let lastChar = displayValue.charAt(displayValue.length - 1);
     if (lastChar == "+" || lastChar == "-" || lastChar == "*" || lastChar == "/") {
         return true;
+    }
+}
+
+function containDecimal() {
+    // console.log("does number already contains a decimal ?");
+    if (num1 && operatorCurrent) {
+        console.log("-->", num1, operatorCurrent)
+        let str = displayValue.replace(num1, "");
+        if (str.includes(".")) {
+            // console.log("already a decimal in second number, return true");
+            return true;
+        }
+    } else {
+        if (displayValue.includes(".")) {
+            // console.log("already a decimal in first number, return true");
+            return true;
+        }
     }
 }
 
@@ -55,11 +72,11 @@ function pressedNumber(str) {
     if (displayValue == "0") {
         displayValue = str;
     } else if (isLastCharOperation()) {
-        num2 += str;
         displayValue += str;
     } else if (operatorCurrent) {
-        num2 += str;
         displayValue += str;
+        let reducedStr = displayValue.replace(num1, "").replace(operatorCurrent, "");
+        num2 += reducedStr;
     } else {
         displayValue += str;
     }
@@ -88,12 +105,28 @@ function pressedOperation(oper) {
     }
 }
 
+function pressedDecimal(str) {
+    if (containDecimal()) {
+        console.log("decimal point already exist...");
+    } else {
+        if (displayValue == 0) {
+            displayValue += str;
+        } else if (isLastCharOperation())
+            displayValue += "0.";
+        else {
+            displayValue += str;
+        }
+        updateDisplay(displayValue);
+    }
+}
+
 function pressedEqual() {
     console.log("pressedEqual()")
     if (num1 && operatorCurrent && num2) {
-        displayValue = calculate(operatorCurrent, parseFloat(num1), parseFloat(num2)).toString();
+        displayValue = calculate(operatorCurrent, parseFloat(num1), parseFloat(num2)).toFixed(2).toString();
         num1 = displayValue;
         num2 = "";
+        operatorCurrent = undefined;
         updateDisplay(displayValue);
     }
 
@@ -103,7 +136,6 @@ function updateDisplay(str) {
     // displayLine1.innerText = displayLine2.innerText;
     displayLine2.innerText = str;
 }
-
 
 
 function changePolarity() {
@@ -158,7 +190,7 @@ function onClick(e) {
             pressedOperation("/");
             break;
         case ".":
-            pressedOperation(".");
+            pressedDecimal(".");
             break;
         case "C":
             clear();
@@ -167,7 +199,7 @@ function onClick(e) {
             allClear();
             break;
         case "+/-":
-            changePolarity();
+            pressedPolarity();
             break;
         case "=":
             pressedEqual();
