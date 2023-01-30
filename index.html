@@ -5,25 +5,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turpija page @ github pages</title>
+    <title>-= TURPIJA =-</title>
     <link rel="stylesheet" href="/styles/normalize.css">
     <link rel="stylesheet" href="/styles/reset.local.css">
     <link rel="stylesheet" href="/styles/typography.css">
     <link rel="stylesheet" href="/styles/indexStyle.css">
+    <script src="scripts/clock.js" defer></script>
 </head>
 
-<body>
-    <main>
-        <div class="window shadow">
-            <h4 class="title">PROjects</h4>
-            <p>some projects from <a href="https://www.theodinproject.com/" class="link">ODIN</a> course as follows:</p>
+<body class="colorBg">
+    <header>
+        <h1>TURPIJA web interface</h1>
+        <nav class="shadow">
             <ul>
-                <li><a href="/odin-landingP/index.html" class="btn shadow">odin project: landing page</a></li>
-                <li><a href="/odin-etch-a-sketch/index.html" class="btn shadow">odin project: etch-a-sketch</a></li>
-                <li><a href="/odin-calculator/index.html" class="btn shadow">odin project: calculator machine</a></li>
+                <li><a href="#" class="navLink">File</a></li>
+                <li><a href="#" class="navLink">Portfolio</a></li>
+                <li><a href="#" class="navLink">Misc projects</a></li>
+                <li><a href="#" class="navLink">Info</a></li>
             </ul>
-        </div>
+            <h4 id="clock">23:17:27</h4>
+        </nav>
+    </header>
+    <main>
+        <section class="web">
+            <!-- <h2>--== WEBSITE PORTFOLIO ==--</h2> -->
+            <div class="window shadow">
+                <h4 class="title">varstol</h4>
+                <a href="http://www.varstol.com"><img src="/images/varstol.png" alt="varstol web"></a>
+                <p><a href="http://www.varstol.com" class="link">www.varstol.com</a>
+                    Simple one page website for local company/product - welding tables and acessories</p>
+                <hr>
+                <h4>Details:</h4>
+                <span>one page website</span><span>mobile 1st</span><span>HTML</span><span>CSS</span>
+            </div>
+        </section>
+
+        <section class="odin">
+            <!-- <h2>--== MISCELLANEOUS PROJECTS ==--</h2> -->
+            <div class="window shadow">
+                <h4 class="title">ODIN course projects</h4>
+                <p>Some of the successfully completed projects from <a href="https://www.theodinproject.com/"
+                        class="link">theOdinProject.com</a> course as follows:</p>
+                <ul>
+                    <li><a href="/odin-landingP/index.html" class="btn shadow">odin project: landing page</a></li>
+                    <li><a href="/odin-etch-a-sketch/index.html" class="btn shadow">odin project: etch-a-sketch</a></li>
+                    <li><a href="/odin-calculator/index.html" class="btn shadow">odin project: calculator machine</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
     </main>
+    <footer>
+        web assembly
+    </footer>
 </body>
 
 </html>
