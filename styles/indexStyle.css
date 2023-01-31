@@ -1,16 +1,28 @@
-.colorBg {
-    background-color: rgb(91, 98, 104);
+:root {
+    --cWindow: #bdbdbd;
+    --cMainBg: #5b6268;
+    --cNavHover: #ffffff66;
+    --cfirstLetter: #ca4545;
+    --cLight: #787878;
+    
+    --cBtn:#dfc94d;
+    --cBtnHover: #ffed85;
+    --cEm: #ffe600;
+    --cEm: #3d74b8;
+}
+
+body {
+    background-color: var(--cMainBg);
 }
 
 header {
     position: fixed;
     z-index: 10;
     width: 100%;
-    background-color: #669dcd;
+    background-color: var(--cBtn);
 }
 
 footer {
-    /* background-color: #bdbdbd; */
     text-align: center;
     margin-top: 40px;
 }
@@ -19,19 +31,18 @@ nav {
     width: 100vw;
     display: flex;
     justify-content: space-between;
-    background-color: #bdbdbd;
+    background-color: var(--cWindow);
 }
 
 nav ul {
     display: flex;
     flex-wrap: wrap;
-    /* gap: 10px; */
     padding: 0 20px;
     margin-top: 1px;
 }
 
 .navLink:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: var(--cNavHover);
     ;
 }
 
@@ -40,7 +51,7 @@ nav a {
 }
 
 nav li::first-letter {
-    color: rgb(202, 69, 69);
+    color: var(--cfirstLetter);
 }
 
 main {
@@ -68,18 +79,18 @@ h2 {
 }
 
 .link:hover {
-    background-color: #74b0e5;
+    background-color: var(--cBtnHover);
 }
 
 
 .btn {
-    background-color: #669dcd;
+    background-color: var(--cBtn);
     padding: 5rem 10rem;
 }
 
 .btn:hover,
 .link:hover {
-    background-color: #74b0e5;
+    background-color: var(--cBtnHover);
 }
 
 .shadow {
@@ -91,7 +102,7 @@ h2 {
 }
 
 
-/* WINDOW */
+/* ---- WINDOW ---- X*/
 .window {
     scroll-margin-top: 60px; 
     
@@ -111,7 +122,7 @@ h2 {
     top: -20px;
     left: 50%;
     transform: translate(-50%);
-    background-color: #bdbdbd;
+    background-color: var(--cWindow);
     padding: 0 10px;
     text-align: center;
 }
@@ -127,7 +138,7 @@ h2 {
 }
 
 
-/* CARD */
+/* ---- CARD ---- */
 
 .card {
     display: grid;
@@ -150,7 +161,7 @@ h2 {
 }
 
 
-/* TABLE  */
+/* ---- TABLE ---- */
 
 table {
     width: 100%;
@@ -177,15 +188,16 @@ tfoot,
 thead {
     border-top: 1px solid black;
     color: #787878;
+    color: #787878;
 }
 
 tbody tr:hover {
-    background-color: #74b0e5;
+    background-color: var(--cBtnHover);
 }
 
 em {
     font-style: normal;
-    color: rgb(26, 117, 228)
+    color: var(--cEm);
 }
 
 i {
@@ -207,6 +219,8 @@ hr {
     margin-left: -11px;
     margin-right: -11px;
 }
+
+/* ---- UTILITY ---- */
 
 .mt-10 {
     margin-top: -10px;
@@ -230,22 +244,4 @@ hr {
 
 .txtCenter {
     text-align: center;
-}
-
-.gridVert {
-    display: grid;
-}
-
-.listSpaced li {
-    margin: 20px 0;
-}
-
-.relPos10 {
-    position: relative;
-    top: 7px;
-}
-
-.relPos-10 {
-    position: relative;
-    top: -10px;
 }
