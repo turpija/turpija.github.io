@@ -16,6 +16,7 @@ footer {
 }
 
 nav {
+    width: 100vw;
     display: flex;
     justify-content: space-between;
     background-color: #bdbdbd;
@@ -151,10 +152,15 @@ h2 {
 /* TABLE  */
 
 table {
+    width: 100%;
     margin-top: 10px;
     border-collapse: collapse;
     width: 100%;
     border: 4px double #787878;
+}
+
+table * {
+    text-overflow: ellipsis;
 }
 
 th,
@@ -163,6 +169,12 @@ td {
     border-left: 1px solid #787878;
     padding: 2px 10px;
     text-align: left;
+    word-break: break-all;
+}
+
+tbody td {
+    border-top: 1px solid #a1a1a1;
+    border-bottom: 1px solid #a1a1a1;
 }
 
 td:first-child {
@@ -177,11 +189,6 @@ thead {
 
 tbody tr:hover {
     background-color: #74b0e5;
-}
-
-tbody td:first-child{
-    display: flex;
-    justify-content: space-between;
 }
 
 em {
