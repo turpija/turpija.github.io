@@ -92,10 +92,11 @@ h2 {
 
 
 /* WINDOW */
-
 .window {
+    scroll-margin-top: 60px; 
+    
     display: block;
-    outline: 4px double rgb(0, 0, 0);
+    outline: 4px double black;
     outline-offset: -10px;
     padding: 20px;
     background-color: #bdbdbd;
@@ -156,25 +157,16 @@ table {
     margin-top: 10px;
     border-collapse: collapse;
     width: 100%;
-    border: 4px double #787878;
-}
-
-table * {
-    text-overflow: ellipsis;
+    border: 1px solid black;
 }
 
 th,
 td {
     font-weight: normal;
-    border-left: 1px solid #787878;
+    border-left: 1px solid black;
     padding: 2px 5px;
     text-align: left;
     word-break: break-all;
-}
-
-tbody td {
-    border-top: 1px solid #a1a1a1;
-    border-bottom: 1px solid #a1a1a1;
 }
 
 td:first-child {
@@ -183,7 +175,7 @@ td:first-child {
 
 tfoot,
 thead {
-    border-top: 1px solid #787878;
+    border-top: 1px solid black;
     color: #787878;
 }
 
@@ -210,6 +202,7 @@ span {
 
 hr {
     border-top: 4px double rgb(0, 0, 0);
+    border-top: 1px solid rgb(0, 0, 0);
     border-bottom: none;
     margin-left: -11px;
     margin-right: -11px;
