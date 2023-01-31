@@ -3,7 +3,7 @@
 }
 
 header {
-    position:fixed;
+    position: fixed;
     z-index: 10;
     width: 100%;
     background-color: #669dcd;
@@ -25,11 +25,12 @@ nav ul {
     display: flex;
     gap: 10px;
     padding: 0 20px;
-    margin-top:1px;
+    margin-top: 1px;
 }
 
 .navLink:hover {
-    background-color:  rgba(255, 255, 255, 0.4);;
+    background-color: rgba(255, 255, 255, 0.4);
+    ;
 }
 
 nav a {
@@ -42,9 +43,13 @@ nav li::first-letter {
 
 main {
     padding-top: 60rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
 }
 
-h1, h2, h4 {
+h1,
+h2,
+h4 {
     padding: 0 20px;
 }
 
@@ -52,19 +57,15 @@ h2 {
     padding-top: 30px;
     font-size: 32rem;
     text-align: center;
-    color:#bdbdbd;
-    /* text-shadow: 5px 5px 2px black; */
+    color: #bdbdbd;
 }
 
-
-
-
-.link{
-    background-color: rgba(0, 0, 0, 0.2);
-    padding: 2px 5px;
+.link {
+    /* padding: 2px 5px; */
+    text-decoration: underline;
 }
-.link:hover{
-    background-color: transparent;
+
+.link:hover {
     background-color: #74b0e5;
 }
 
@@ -74,7 +75,9 @@ h2 {
     padding: 5rem 10rem;
 }
 
-.btn:hover {
+.btn:hover,
+.link:hover
+ {
     background-color: #74b0e5;
 }
 
@@ -88,7 +91,7 @@ h2 {
 
 .window {
     display: block;
-    outline: 4px double black;
+    outline: 4px double rgb(0, 0, 0);
     outline-offset: -10px;
     padding: 20px;
     background-color: #bdbdbd;
@@ -103,48 +106,79 @@ h2 {
     top: -20px;
     left: 50%;
     transform: translate(-50%);
-    background-color: rgb(189, 189, 189);
+    background-color: rgb(255, 231, 126);
     padding: 0 10px;
     text-align: center;
 }
 
-.window li {
-    margin: 20rem 0rem;
-}
-
-.window >:nth-child(2){
-    /* border: 1px solid red; */
-    position: relative;
-    top: -10px;
-    /* margin-top: -10rem; */
-}
-
 .window img {
-    max-width: 100%;
+    /* max-width: 100%; */
     filter: grayscale(100%);
+    padding: 10px;
 }
 
 .window img:hover {
     filter: grayscale(0%);
 }
 
+.card {
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.card .left {
+    outline: 1px solid rgb(0, 0, 0);
+    outline-offset: -5px;
+}
+
+.card .right {
+    margin-left: 10px;
+}
+
 span {
-    padding: 2px 10px ;
+    display: inline-block;
+    padding: 2px 10px;
     border: 1px solid black;
     margin-right: 5px;
 }
 
 hr {
-    border-top: 1px solid black;
+    border-top: 4px double rgb(0, 0, 0);
     border-bottom: none;
-    margin-left: -10px;
-    margin-right: -10px;
+    margin-left: -11px;
+    margin-right: -11px;
 }
 
 .mt-10 {
     margin-top: -10px;
 }
 
+.mt20 {
+    margin-top: 20px;
+}
+
 .mt-20 {
     margin-top: -20px;
+}
+
+.mtb20 {
+    margin: 20px 0;
+}
+
+.txtCenter {
+    text-align: center;
+}
+
+.gridVert {
+    display: grid;
+}
+
+.listSpaced li {
+    margin: 20px 0;
+}
+
+.relativePosition-10 {
+    position: relative;
+    top: -20px;
 }
