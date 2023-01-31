@@ -10,7 +10,7 @@ header {
 }
 
 footer {
-    background-color: #bdbdbd;
+    /* background-color: #bdbdbd; */
     text-align: center;
     margin-top: 40px;
 }
@@ -23,7 +23,8 @@ nav {
 
 nav ul {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap;
+    /* gap: 10px; */
     padding: 0 20px;
     margin-top: 1px;
 }
@@ -76,8 +77,7 @@ h2 {
 }
 
 .btn:hover,
-.link:hover
- {
+.link:hover {
     background-color: #74b0e5;
 }
 
@@ -88,6 +88,9 @@ h2 {
 .noBg {
     background-color: transparent;
 }
+
+
+/* WINDOW */
 
 .window {
     display: block;
@@ -106,13 +109,13 @@ h2 {
     top: -20px;
     left: 50%;
     transform: translate(-50%);
-    background-color: rgb(255, 231, 126);
+    background-color: #bdbdbd;
     padding: 0 10px;
     text-align: center;
 }
 
 .window img {
-    /* max-width: 100%; */
+    max-width: 100%;
     filter: grayscale(100%);
     padding: 10px;
 }
@@ -121,8 +124,10 @@ h2 {
     filter: grayscale(0%);
 }
 
+
+/* CARD */
+
 .card {
-    padding: 10px 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -133,13 +138,66 @@ h2 {
 }
 
 .card .right {
+    padding: 7px 0;
     margin-left: 10px;
+}
+
+.card .right li {
+    margin-left: 20px;
+    list-style-type: ": ";
+}
+
+
+/* TABLE  */
+
+table {
+    margin-top: 10px;
+    border-collapse: collapse;
+    width: 100%;
+    border: 4px double #787878;
+}
+
+th,
+td {
+    font-weight: normal;
+    border-left: 1px solid #787878;
+    padding: 2px 10px;
+    text-align: left;
+}
+
+td:first-child {
+    border-left: none;
+}
+
+tfoot,
+thead {
+    border-top: 1px solid #787878;
+    color: #787878;
+}
+
+tbody tr:hover {
+    background-color: #74b0e5;
+}
+
+tbody td:first-child{
+    display: flex;
+    justify-content: space-between;
+}
+
+em {
+    font-style: normal;
+    color: rgb(26, 117, 228)
+}
+
+i {
+    font-style: normal;
+    color: #787878;
 }
 
 span {
     display: inline-block;
     padding: 2px 10px;
-    border: 1px solid black;
+    border: 1px solid;
     margin-right: 5px;
 }
 
@@ -152,6 +210,10 @@ hr {
 
 .mt-10 {
     margin-top: -10px;
+}
+
+.mt10 {
+    margin-top: 10px;
 }
 
 .mt20 {
@@ -178,7 +240,12 @@ hr {
     margin: 20px 0;
 }
 
-.relativePosition-10 {
+.relPos10 {
     position: relative;
-    top: -20px;
+    top: 7px;
+}
+
+.relPos-10 {
+    position: relative;
+    top: -10px;
 }
