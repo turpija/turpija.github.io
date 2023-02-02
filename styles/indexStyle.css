@@ -8,6 +8,8 @@
     --cBtnHover: #ffed85;
     --cEm: #3d74b8;
     --cText: #222;
+    --imgBrightness: 1;
+
 }
 
 :root.dark {
@@ -20,6 +22,14 @@
     --cBtnHover: #25647c;
     --cEm: #c49758;
     --cText: #d3d3d3;
+    --imgBrightness: 0.7;
+}
+
+* {
+    transition:
+        background-color 50ms linear,
+        color 50ms linear;
+
 }
 
 ::selection {
@@ -29,10 +39,10 @@
 
 html {
     scroll-behavior: smooth;
-
 }
 
 body {
+    transition: all 0.5 ease-in-out;
     background-color: var(--cMainBg);
     color: var(--cText);
 }
@@ -189,12 +199,12 @@ hr {
 
 .window img {
     max-width: 100%;
-    filter: grayscale(100%);
+    filter: grayscale(100%) brightness(var(--imgBrightness));
     padding: 15px;
 }
 
 .window img:hover {
-    filter: grayscale(0%);
+    filter: grayscale(0%) brightness(var(--imgBrightness));
 }
 
 

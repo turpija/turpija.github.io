@@ -1,7 +1,11 @@
 function setTheme() {
     document.documentElement.classList.toggle('dark')
-    
-    document.querySelector('#toggleTheme').textContent = newTheme;
+
+    if (document.documentElement.classList.value === "dark") {
+        document.querySelector('#toggleTheme').innerHTML = "Light";
+    } else {
+        document.querySelector('#toggleTheme').innerHTML = "Dark";
+    }
 }
 
 document.querySelector('#toggleTheme').addEventListener('click', setTheme)
