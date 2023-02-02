@@ -9,7 +9,7 @@
     --cEm: #3d74b8;
     --cText: #222;
     --imgBrightness: 1;
-
+    --imgContrast:1;
 }
 
 :root.dark {
@@ -23,6 +23,7 @@
     --cEm: #c49758;
     --cText: #d3d3d3;
     --imgBrightness: 0.7;
+    --imgContrast:1.5;
 }
 
 * {
@@ -60,7 +61,6 @@ footer {
 }
 
 nav {
-    /* width: 100vw; */
     display: flex;
     justify-content: space-between;
     background-color: var(--cWindow);
@@ -70,8 +70,6 @@ nav ul {
     display: flex;
     flex-wrap: wrap;
     padding: 0 10px;
-    /* margin-top: 1px; */
-    /* margin-bottom: 1px; */
 }
 
 main {
@@ -112,11 +110,9 @@ span {
     margin-right: 2px;
     background-color: var(--cNavHover);
     border-radius: 2px;
-    /* border: 1px solid; */
 }
 
 hr {
-    /* border-top: 4px double; */
     border-top: 1px solid;
     border-bottom: none;
     margin-left: -11px;
@@ -199,12 +195,12 @@ hr {
 
 .window img {
     max-width: 100%;
-    filter: grayscale(100%) brightness(var(--imgBrightness));
+    filter: grayscale(100%) brightness(var(--imgBrightness)) contrast(var(--imgContrast));
     padding: 15px;
 }
 
 .window img:hover {
-    filter: grayscale(0%) brightness(var(--imgBrightness));
+    filter: grayscale(0%) brightness(var(--imgBrightness)) contrast(var(--imgContrast));
 }
 
 
@@ -228,7 +224,6 @@ hr {
 
 .card .right li {
     margin-left: 10px;
-    /* list-style-type: ": "; */
 }
 
 
