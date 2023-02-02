@@ -11,8 +11,14 @@
     --cEm: #3d74b8;
 }
 
+::selection{
+    color: rgb(0, 255, 72);
+    background-color: rgb(128, 0, 255);
+}
+
 html {
     scroll-behavior: smooth;
+    
 }
 
 body {
@@ -116,9 +122,11 @@ h2 {
 .window {
     scroll-margin-top: 60px;
     display: block;
+    position: relative;
     outline: 4px double black;
     outline-offset: -10px;
     padding: 20px;
+    padding-top: 25px;
     background-color: #bdbdbd;
     min-width: 330px;
     max-width: 600px;
@@ -127,8 +135,8 @@ h2 {
 
 .window .title {
     display: inline-block;
-    position: relative;
-    top: -20px;
+    position: absolute;
+    top: 0px;
     left: 50%;
     transform: translate(-50%);
     background-color: var(--cWindow);
