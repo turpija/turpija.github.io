@@ -4,25 +4,37 @@
     --cNavHover: #ffffff66;
     --cfirstLetter: #ca4545;
     --cLight: #787878;
-
     --cBtn: #dfc94d;
     --cBtnHover: #ffed85;
-    --cEm: #ffe600;
     --cEm: #3d74b8;
+    --cText: #222;
 }
 
-::selection{
+:root.dark {
+    --cWindow: #3b3b3b;
+    --cMainBg: #2c2f30;
+    --cNavHover: #83838366;
+    --cfirstLetter: #be3c3c;
+    --cLight: #747474;
+    --cBtn: #2c7592;
+    --cBtnHover: #25647c;
+    --cEm: #c49758;
+    --cText: #d3d3d3;
+}
+
+::selection {
     color: rgb(0, 255, 72);
     background-color: rgb(128, 0, 255);
 }
 
 html {
     scroll-behavior: smooth;
-    
+
 }
 
 body {
     background-color: var(--cMainBg);
+    color: var(--cText);
 }
 
 header {
@@ -38,7 +50,7 @@ footer {
 }
 
 nav {
-    width: 100vw;
+    /* width: 100vw; */
     display: flex;
     justify-content: space-between;
     background-color: var(--cWindow);
@@ -48,22 +60,8 @@ nav ul {
     display: flex;
     flex-wrap: wrap;
     padding: 0 10px;
-    margin-top: 1px;
-    margin-bottom: 1px;
-}
-
-.navLink:hover {
-    background-color: var(--cNavHover);
-    ;
-}
-
-nav a {
-    padding: 3px 10px;
-}
-
-nav li::first-letter,
-.link::first-letter {
-    color: var(--cfirstLetter);
+    /* margin-top: 1px; */
+    /* margin-bottom: 1px; */
 }
 
 main {
@@ -75,6 +73,8 @@ main {
 h1,
 h2,
 h4 {
+    margin: auto 0;
+
     padding: 0 20px;
 }
 
@@ -84,6 +84,56 @@ h2 {
     text-align: center;
     color: #bdbdbd;
 }
+
+em {
+    font-style: normal;
+    color: var(--cEm);
+}
+
+i {
+    font-style: normal;
+    color: var(--cLight);
+}
+
+span {
+    display: inline-block;
+    padding: 1px 4px;
+    margin-top: 2px;
+    margin-right: 2px;
+    background-color: var(--cNavHover);
+    border-radius: 2px;
+    /* border: 1px solid; */
+}
+
+hr {
+    /* border-top: 4px double; */
+    border-top: 1px solid;
+    border-bottom: none;
+    margin-left: -11px;
+    margin-right: -11px;
+}
+
+
+
+/* ---- NAVBAR ---- */
+
+.navLink:hover {
+    background-color: var(--cNavHover);
+}
+
+.navLink {
+    padding: 3px 10px;
+    display: block;
+}
+
+.navLink:first-letter,
+.link:first-letter {
+    color: var(--cfirstLetter);
+}
+
+
+
+/* ---- LINKS, BUTTONS ---- */
 
 .link {
     display: inline-block;
@@ -98,7 +148,6 @@ h2 {
 
 }
 
-
 .btn {
     background-color: var(--cBtn);
     padding: 5rem 10rem;
@@ -109,25 +158,19 @@ h2 {
     background-color: var(--cBtnHover);
 }
 
-.shadow {
-    box-shadow: 8px 8px 2px rgba(0, 0, 0, 0.3);
-}
-
-.noBg {
-    background-color: transparent;
-}
 
 
 /* ---- WINDOW ---- X*/
+
 .window {
     scroll-margin-top: 60px;
     display: block;
     position: relative;
-    outline: 4px double black;
+    outline: 4px double var(--cText);
     outline-offset: -10px;
     padding: 20px;
     padding-top: 25px;
-    background-color: #bdbdbd;
+    background-color: var(--cWindow);
     min-width: 330px;
     max-width: 600px;
     margin: 40px auto;
@@ -155,6 +198,7 @@ h2 {
 }
 
 
+
 /* ---- CARD ---- */
 
 .card {
@@ -163,7 +207,7 @@ h2 {
 }
 
 .card .left {
-    outline: 1px solid rgb(0, 0, 0);
+    outline: 1px solid var(--cText);
     outline-offset: -5px;
 }
 
@@ -178,6 +222,7 @@ h2 {
 }
 
 
+
 /* ---- TABLE ---- */
 
 table {
@@ -185,13 +230,13 @@ table {
     margin-top: 10px;
     border-collapse: collapse;
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid var(--cText);
 }
 
 th,
 td {
     font-weight: normal;
-    border-left: 1px solid black;
+    border-left: 1px solid var(--cText);
     padding: 2px 5px;
     text-align: left;
     word-break: break-all;
@@ -203,44 +248,21 @@ td:first-child {
 
 tfoot,
 thead {
-    border-top: 1px solid;
-    color: #787878;
-    color: #787878;
+    border-top: 1px solid var(--cText);
+    color: var(--cLight);
 }
 
 tbody tr:hover {
     background-color: var(--cBtnHover);
 }
 
-em {
-    font-style: normal;
-    color: var(--cEm);
-}
 
-i {
-    font-style: normal;
-    color: #787878;
-}
-
-span {
-    display: inline-block;
-    padding: 1px 4px;
-    margin-top: 2px;
-    margin-right: 2px;
-    background-color: var(--cNavHover);
-    border-radius: 2px;
-    /* border: 1px solid; */
-}
-
-hr {
-    /* border-top: 4px double; */
-    border-top: 1px solid;
-    border-bottom: none;
-    margin-left: -11px;
-    margin-right: -11px;
-}
 
 /* ---- UTILITY ---- */
+
+.shadow {
+    box-shadow: 8px 8px 2px rgba(0, 0, 0, 0.3);
+}
 
 .mt-10 {
     margin-top: -10px;

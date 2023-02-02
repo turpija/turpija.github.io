@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles/typography.css">
     <link rel="stylesheet" href="styles/indexStyle.css">
     <script src="scripts/clock.js" defer></script>
+    <script src="scripts/theme.js" defer></script>
 </head>
 
 <body>
@@ -18,17 +19,18 @@
         <h1>TURPIJA web interface</h1>
         <nav class="shadow">
             <ul>
-                <li><a href="#" class="navLink">File</a></li>
-                <li><a href="#portfolio" class="navLink">Portfolio</a></li>
-                <li><a href="#misc" class="navLink">Misc</a></li>
-                <li><a href="#info" class="navLink">Info</a></li>
+                <!-- <li><a href="#" class="navLink">File</a></li> -->
+                <li><button><a href="#portfolio" class="navLink">Portfolio</a></button></li>
+                <li><button><a href="#misc" class="navLink">Misc</a></button></li>
+                <li><button><a href="#info" class="navLink">Info</a></button></li>
+                <li><button id="toggleTheme"><a class="navLink">Dark</a></button></li>
             </ul>
-            <h4 id="clock">23:17:27</h4>
+                <h4 id="clock">23:17:27</h4>
         </nav>
     </header>
     <main>
         <section id="portfolio" class="window shadow">
-            <h4 class="title">C:\portfolio\web<i> - &#60;PREVIEW&#62;</i></h4>
+            <div class="title">C:\portfolio\web<i> - &#60;PREVIEW&#62;</i></div>
             <div class="card">
                 <div class="left">
                     <a href="http://www.varstol.com"><img src="images/web_varstol.png" alt="varstol web"></a>
