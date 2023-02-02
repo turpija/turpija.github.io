@@ -52,9 +52,9 @@ section {
     position: absolute;
     /* z-index: -9999; */
     color: var(--textCol);
-    margin: 20px;
+    margin: 0;
     height: 90%;
-    width: 90%;
+    width: 100%;
 }
 
 .overlay h4 {
@@ -72,9 +72,10 @@ section {
 .top {
     z-index: 9000;
     /* border: 1px solid yellow; */
-    padding: 10px;
+    padding: 20px 10px 10px 20px;
     background-color: rgb(0, 0, 0, 0.4);
     max-width: 600px;
+    width: min(100%, 600px);
     opacity: 0.8;
 }
 
@@ -85,6 +86,7 @@ section {
     max-width: 300px;
     bottom: 5%;
     padding: 10px;
+    padding-right: 20px;
     /* border: 1px solid yellow; */
     background-color: rgb(0, 0, 0, 0.4);
     opacity: 0.7;
