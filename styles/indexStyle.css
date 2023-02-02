@@ -58,6 +58,7 @@ header {
 footer {
     text-align: center;
     margin-top: 40px;
+    padding: 0 10px;
 }
 
 nav {
@@ -82,7 +83,6 @@ h1,
 h2,
 h4 {
     margin: auto 0;
-
     padding: 0 20px;
 }
 
@@ -183,8 +183,9 @@ hr {
 }
 
 .window .title {
-    display: inline-block;
+    display: block;
     position: absolute;
+    inline-size:max-content ;
     top: 0px;
     left: 50%;
     transform: translate(-50%);
