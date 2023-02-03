@@ -1,22 +1,32 @@
-
-
-function createDuplicateImg(origImg){
+function createDuplicateImg(origImg) {
     // console.dir(origImg);
-    const img = new Image(); 
+    const img = new Image();
     img.src = origImg.src;
+    img.style.filter = origImg.style.filter;
     img.style.position = "absolute";
+    img.style.zIndex = "50";
 
-    img.style.left = `${origImg.offsetLeft}px`;
-    img.style.top = `${origImg.offsetTop}px`;
+    const paddingLeft = parseInt(window.getComputedStyle(origImg).paddingLeft);
+    const paddingTop = parseInt(window.getComputedStyle(origImg).paddingTop);
+    const origImgLeft = origImg.getBoundingClientRect().left;
+    const origImgTop = origImg.getBoundingClientRect().top;
+    const scrollTopOffset =  window.pageYOffset;
 
-    origImg.parentElement.append(img);
+    img.style.left = `${origImgLeft+paddingLeft}px`;
+    img.style.top = `${origImgTop+paddingTop+scrollTopOffset}px`;
+    console.log("boundingRect: ", origImg.getBoundingClientRect());
+    console.log("Yoffset: ", window.pageYOffset);
 
+    const body = document.querySelector("body");
+    body.append(img);
     return img;
 }
 
-function resizeToFullScreen(newImg){
+function resizeToFullScreen(newImg) {
+    // newImg.style.transition = "transform 0.5s ease";
+    newImg.style.transform = "scale(1.3)";
     console.dir(newImg)
-    newImg
+
 }
 
 function clickedImage(e) {
