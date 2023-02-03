@@ -10,12 +10,12 @@ function createDuplicateImg(origImg) {
     const paddingTop = parseInt(window.getComputedStyle(origImg).paddingTop);
     const origImgLeft = origImg.getBoundingClientRect().left;
     const origImgTop = origImg.getBoundingClientRect().top;
-    const scrollTopOffset =  window.pageYOffset;
+    const scrollTopOffset = window.pageYOffset;
 
     img.style.left = `${origImgLeft+paddingLeft}px`;
     img.style.top = `${origImgTop+paddingTop+scrollTopOffset}px`;
-    console.log("boundingRect: ", origImg.getBoundingClientRect());
-    console.log("Yoffset: ", window.pageYOffset);
+    // console.log("boundingRect: ", origImg.getBoundingClientRect());
+    // console.log("Yoffset: ", window.pageYOffset);
 
     const body = document.querySelector("body");
     body.append(img);
@@ -23,9 +23,12 @@ function createDuplicateImg(origImg) {
 }
 
 function resizeToFullScreen(newImg) {
-    // newImg.style.transition = "transform 0.5s ease";
-    newImg.style.transform = "scale(1.3)";
-    console.dir(newImg)
+    newImg.style.transform = "scale(1)";
+    newImg.style.transition = "all 0.2s ease-in-out";
+    window.setTimeout(() => {
+        newImg.style.transform = "scale(2)";
+    }, 100);
+    console.log(newImg.style);
 
 }
 
