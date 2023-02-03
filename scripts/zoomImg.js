@@ -22,22 +22,45 @@ function createDuplicateImg(origImg) {
     return img;
 }
 
-function resizeToFullScreen(newImg) {
-    newImg.style.transform = "scale(1)";
-    newImg.style.transition = "all 0.2s ease-in-out";
-    window.setTimeout(() => {
-        newImg.style.transform = "scale(2)";
-    }, 100);
-    console.log(newImg.style);
+function animation(img) {
+    const prop = img.style.width;
+    img.style.left = "0px";
+    img.style.top = `${window.pageYOffset}px`;
+    img.style.width = `${document.body.clientWidth}px`;
 
+    function afterImageScale(e) {
+        img.removeEventListener("transitionend", afterImageScale);
+        console.log("after img resize ... do some tricks")
+    };
+
+    img.addEventListener("transitionend", afterImageScale);
+
+}
+
+/* remove this function .... */
+function resizeToFullScreen(newImg, origImgwidth) {
+    newImg.style.width = `${origImgwidth}px`;
+    newImg.style.transition = "all .3s ease-in-out";
 }
 
 function clickedImage(e) {
     e.preventDefault();
-    image = e.target;
-    // console.log(image);
+    origImg = e.target;
+
+    function origImgWidth() {
+        const origImgWidthFull = parseInt(getComputedStyle(origImg).width);
+        const origImgPaddingLeft = parseInt(getComputedStyle(origImg).paddingLeft)
+        const origImgPaddingRight = parseInt(getComputedStyle(origImg).paddingRight);
+        
+        return origImgWidthFull - origImgPaddingLeft - origImgPaddingRight;
+    }
+
+    // console.log(origImgWidth());
     newImg = createDuplicateImg(e.target);
-    resizeToFullScreen(newImg);
+    resizeToFullScreen(newImg, origImgWidth());
+    window.setTimeout(() => {
+        animation(newImg)
+    }, 20);
 }
 
 function addClickEvents() {
@@ -50,3 +73,6 @@ function addClickEvents() {
 }
 
 addClickEvents();
+
+// const cardLeft = document.querySelector(".card .left");
+// console.log("aktualy širina:",getComputedStyle(cardLeft).width);
