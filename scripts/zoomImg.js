@@ -22,25 +22,19 @@ function createDuplicateImg(origImg) {
     return img;
 }
 
-function animation(img) {
-    const prop = img.style.width;
-    img.style.left = "0px";
-    img.style.top = `${window.pageYOffset}px`;
-    img.style.width = `${document.body.clientWidth}px`;
+function resizeToFullScreen(newImg) {
+    const prop = newImg.style.width;
+    newImg.style.left = "0px";
+    newImg.style.top = `${window.pageYOffset}px`;
+    newImg.style.width = `${document.body.clientWidth}px`;
 
     function afterImageScale(e) {
-        img.removeEventListener("transitionend", afterImageScale);
+        newImg.removeEventListener("transitionend", afterImageScale);
         console.log("after img resize ... do some tricks")
     };
 
-    img.addEventListener("transitionend", afterImageScale);
+    newImg.addEventListener("transitionend", afterImageScale);
 
-}
-
-/* remove this function .... */
-function resizeToFullScreen(newImg, origImgwidth) {
-    newImg.style.width = `${origImgwidth}px`;
-    newImg.style.transition = "all .3s ease-in-out";
 }
 
 function clickedImage(e) {
@@ -55,11 +49,14 @@ function clickedImage(e) {
         return origImgWidthFull - origImgPaddingLeft - origImgPaddingRight;
     }
 
-    // console.log(origImgWidth());
+    console.log(origImgWidth());
     newImg = createDuplicateImg(e.target);
-    resizeToFullScreen(newImg, origImgWidth());
+    // resizeToFullScreen(newImg, origImgWidth());
+    newImg.style.width = `${origImgWidth()}px`;
+    console.log(newImg.style.width);
+    newImg.style.transition = "all .3s ease-in-out .5s";
     window.setTimeout(() => {
-        animation(newImg)
+        resizeToFullScreen(newImg)
     }, 20);
 }
 
