@@ -29,6 +29,18 @@ fieldset label {
 fieldset {
     padding: 10px;
     margin: 20px 0;
+    min-width: 450px;
+    display: inline-block;
+}
+
+fieldset#naknade {
+    text-align: end;
+}
+
+fieldset#naknade input {
+    margin-left: 10px;
+    min-width: 120px;
+    float: right;
 }
 
 fieldset legend {
