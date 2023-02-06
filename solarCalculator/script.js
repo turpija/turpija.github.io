@@ -55,15 +55,13 @@ async function fetchData() {
             response.headers //=> Headers
             response.url //=> String
 
-            return response.text()
+            console.log(response.text());
         }, function (error) {
             error.message //=> String
         })
+    let result = await response.json();
 
 
-
-    // const myRequest = new Request("https://re.jrc.ec.europa.eu/api/PVcalc?lat=45&lon=8&peakpower=1&loss=14");
-    // const myMode = myRequest.no-cors; // returns "cors" by default
 
 }
 
