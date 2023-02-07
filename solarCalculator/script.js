@@ -46,22 +46,23 @@ const investicija = document.querySelector("#investicija");
 
 async function fetchData() {
     console.log("click");
-    const response = await fetch('https://re.jrc.ec.europa.eu/api/PVcalc?lat=45&lon=8&peakpower=1&loss=14&outputformat=json', {
-            mode: "no-cors"
-        })
-        .then(function (response) {
-            response.status //=> number 100–599
-            response.statusText //=> String
-            response.headers //=> Headers
-            response.url //=> String
+    // const response = await fetch('https://re.jrc.ec.europa.eu/api/PVcalc?lat=45&lon=8&peakpower=1&loss=14&outputformat=json', {
+    //         mode: "no-cors"
+    //     })
+    //     .then(function (response) {
+    //         response.status //=> number 100–599
+    //         response.statusText //=> String
+    //         response.headers //=> Headers
+    //         response.url //=> String
 
-            console.log(response.text());
-        }, function (error) {
-            error.message //=> String
-        })
-    let result = await response.json();
+    //         console.log(response.status);
+    //     }, function (error) {
+    //         error.message //=> String
+    //     })
 
-
+    fetch('https://re.jrc.ec.europa.eu/api/PVcalc?lat=45&lon=8&peakpower=1&loss=14&outputformat=json')
+        .then(response => response.json())
+        .then(json => console.log(json))
 
 }
 
