@@ -123,7 +123,7 @@ function setInputs() {
             lon = 15.99;
             break;
     }
-    
+
 }
 
 // fetch data from API
@@ -151,11 +151,18 @@ const fetchData = async (city) => {
         alert('Invalid API Key')
         return
     }
-
     console.log(data);
 }
 
-setInputs()
+const izracunavaj = async () => {
+    setInputs()
+    await fetchData();
+    // posloži array s podacima od pvgis
+    // složi array s podacima potrošnje struje
+    // preračunaj
+    // napravi i popuni tablicu
+}
+
 
 const fetchBtn = document.querySelector("#fetch");
-fetchBtn.addEventListener("click", fetchData);
+fetchBtn.addEventListener("click", izracunavaj);
