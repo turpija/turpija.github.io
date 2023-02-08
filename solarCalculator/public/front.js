@@ -7,25 +7,27 @@ const krovNagib = document.querySelector("#nagib");
 const monthNames = ["sjecanj", "veljaca", "ozujak", "travanj", "svibanj", "lipanj", "srpanj", "kolovoz", "rujan", "listopad", "studeni", "prosinac"];
 let potrosnjaVT = [];
 let potrosnjaNT = [];
-let solar1kw = [];
+let solar = [69, 74, 141, 178, 192, 197, 213, 200, 158, 130, 87, 58]; // hardcoded values as starting point
 let azimut;
 let lat;
 let lon;
 
-const prodVT = document.querySelector("#prodVT");
-const prodNT = document.querySelector("#prodNT");
-const prijenosVT = document.querySelector("#prijenosVT");
-const prijenosNT = document.querySelector("#prijenosNT");
-const distVT = document.querySelector("#distVT");
-const distNT = document.querySelector("#distNT");
-const otkupVT = document.querySelector("#otkupVT");
-const opskrba = document.querySelector("#opskrba");
-const oie = document.querySelector("#oie");
-const mjernaUsluga = document.querySelector("#mjernaUsluga");
-const popust = document.querySelector("#popust");
+const cijenaVT = document.querySelector("#cijenaVT").value;
+const cijenaNT = document.querySelector("#cijenaNT").value;
+const prijenosVT = document.querySelector("#prijenosVT").value;
+const prijenosNT = document.querySelector("#prijenosNT").value;
+const distVT = document.querySelector("#distVT").value;
+const distNT = document.querySelector("#distNT").value;
+const otkupVT = document.querySelector("#otkupVT").value;
+const opskrba = document.querySelector("#opskrba").value;
+const oie = document.querySelector("#oie").value;
+const mjernaUsluga = document.querySelector("#mjernaUsluga").value;
+const popust = document.querySelector("#popust").value;
 
-const elektranakw = document.querySelector("#elektranakw");
-const investicija = document.querySelector("#investicija");
+let elektranakw = document.querySelector("#elektranakw");
+let investicija = document.querySelector("#investicija");
+let povrsinaKrova = document.querySelector("#povrsinaKrova");
+let povratInvesticije = document.querySelector("#povratInvesticije");
 
 
 // define variables based on user selection
@@ -105,11 +107,23 @@ const setInputs = () => {
     }
 
     for (const month in monthNames) {
-        potrosnjaVT[month] = document.querySelector(`#${monthNames[month]}-VT`).value;
-        potrosnjaNT[month] = document.querySelector(`#${monthNames[month]}-NT`).value;
+        potrosnjaVT[month] = parseInt(document.querySelector(`#${monthNames[month]}-VT`).value);
+        potrosnjaNT[month] = parseInt(document.querySelector(`#${monthNames[month]}-NT`).value);
     }
-
 }
+
+const setElektranaInputs = () => {
+    const zbrojPotrosnje = potrosnjaVT.reduce((sum, curr) => sum + curr) + potrosnjaNT.reduce((sum, curr) => sum + curr);
+    // console.log("zbrojPotrosnje",zbrojPotrosnje);
+    elektranakw.value = Math.round((zbrojPotrosnje * 0.5) / 100) / 10;
+}
+
+const izracunInvesticije = () => {
+    investicija.value = (elektranakw.value * 700) + 2500;
+    povrsinaKrova.innerHTML = `${(elektranakw.value / 0.4) * 2} m<sup>2</sup>`;
+    // povratInvesticije ostalo za izračunati
+}
+
 
 // fetch data from API
 const fetchData = async (city) => {
@@ -142,20 +156,89 @@ const fetchData = async (city) => {
 
 const populateSolarArray = (data) => {
     const arrData = data.outputs.monthly.fixed;
-    return arrData.map(month => month.E_m);
+    return arrData.map(month => parseInt(month.E_m * elektranakw.value));
+}
+
+const createCalculationObject = () => {
+    let kupljenoHep = [];
+    let prodanoHep = [];
+    let kupljenoIznosNT = [];
+    let prodanoIznos = [];
+
+    for (i = 0; i < potrosnjaVT.length; i++) {
+        razlika = potrosnjaVT[i] - solar[i];
+        if (razlika < 0) {
+            kupljenoHep[i] = 0;
+            prodanoHep[i] = razlika * -1;
+        } else {
+            kupljenoHep[i] = razlika;
+            prodanoHep[i] = 0;
+        }
+    }
+
+    let kupljenoIznosVTprijeSolara = [...kupljenoHep];
+    kupljenoIznosVTprijeSolara.forEach((item, i, arr) => {
+        arr[i] = Math.round((item * cijenaVT + item * prijenosVT + item * distVT + item * oie) * 100) / 100;
+    })
+    kupljenoIznosNT = [...potrosnjaNT];
+    kupljenoIznosNT.forEach((item, i, arr) => {
+        arr[i] = Math.round((item * cijenaNT + item * prijenosNT + item * distNT + item * oie) * 100) / 100;
+    })
+    prodanoIznos = [...prodanoHep];
+    prodanoIznos.forEach((item, i, arr) => {
+        arr[i] = Math.round((item * otkupVT) * 100) / 100;
+    })
+
+    let kupljenoIznosVT = [...kupljenoIznosVTprijeSolara];
+    let pretplata = 0;
+    kupljenoIznosVT.forEach((item, i, arr) => {
+        const rez = kupljenoIznosVTprijeSolara[i] - prodanoIznos[i];
+        if (rez > 0 && pretplata <= 0) {
+            kupljenoIznosVT[i] = rez;
+        } else if (rez > 0 && pretplata > 0) {
+            if (rez >= pretplata) {
+                kupljenoIznosVT[i] = rez - pretplata;
+                pretplata = 0;
+            } else {
+                kupljenoIznosVT[i] = 0;
+                pretplata = pretplata - rez;
+            }
+        } else if (rez <= 0) {
+            kupljenoIznosVT[i] = 0;
+            pretplata += Math.abs(rez);
+        }
+    });
+
+
+    return {
+        monthNames, // nazivi mjeseci
+        potrosnjaVT, // kWh potrosnja VT
+        potrosnjaNT, // kWh potrosnja NT
+        solar, // kWh proizvedeni
+        kupljenoHep, //kWh kupljeni od hepa
+        prodanoHep, //kWh prodani hepu
+        kupljenoIznosVTprijeSolara, // eur VT energija, distribucija, prijenos
+        kupljenoIznosNT, // eur NT energija, distribucija, prijenos
+        prodanoIznos, // eur prodano hepu
+        kupljenoIznosVT, // eur VT dijela, umanjen za prodani dio
+        pretplata // eur pretplata na kraju godine - treba biti 0
+    };
 }
 
 
 const izracunavaj = async () => {
     setInputs(); //složi inpute u varijable 
-    const solarData = await fetchData(); // dohvati podatke o solarima
-    solar1kw = populateSolarArray(solarData); // posloži array s podacima od pvgis
-
-    
+    setElektranaInputs();
+    //const solarData = await fetchData(); // dohvati podatke o solarima
+    //solar = populateSolarArray(solarData); // posloži array s podacima od pvgis
+    izracunInvesticije();
+    const calculationObj = createCalculationObject(); // izrada objekta s svim izračunima za mjesece
+    console.log(calculationObj);
     // preračunaj
     // napravi i popuni tablicu
 }
 
+izracunavaj();
 
 const fetchBtn = document.querySelector("#fetch");
 fetchBtn.addEventListener("click", izracunavaj);

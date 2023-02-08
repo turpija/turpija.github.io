@@ -97,11 +97,11 @@
 
     <fieldset id="naknade">
         <legend>HEP cijene i naknade:</legend>
-        <label for="prodVT">Prodajna cijena eur/kWh VT:</label>
-        <input type="number" name="prodVT" id="prodVT" min="0" max="1" step="0.000001" value="0.074789">
+        <label for="cijenaVT">Cijena energije eur/kWh VT:</label>
+        <input type="number" name="cijenaVT" id="cijenaVT" min="0" max="1" step="0.000001" value="0.074789">
         <br>
-        <label for="prodNT">Prodajna cijena eur/kWh NT:</label>
-        <input type="number" name="prodNT" id="prodNT" min="0" max="1" step="0.000001" value="0.036698">
+        <label for="cijenaNT">Cijena energije eur/kWh NT:</label>
+        <input type="number" name="cijenaNT" id="cijenaNT" min="0" max="1" step="0.000001" value="0.036698">
         <br>
         <label for="prijenosVT">Iznos prijenosa eur/kWh VT:</label>
         <input type="number" name="prijenosVT" id="prijenosVT" min="0" max="1" step="0.000001" value="0.017254">
@@ -125,10 +125,10 @@
         <input type="number" name="opskrba" id="opskrba" min="0" max="10" step="0.000001" value="0.9820">
         <br>
         <label for="oie">Naknada za obnovljive izvore eur/kWh:</label>
-        <input type="number" name="oie" id="oie" min="0" max="10" step="0.01" value="1.54">
+        <input type="number" name="oie" id="oie" min="0" max="1" step="0.000001" value="0.014000">
         <br>
         <label for="mjernaUsluga">Naknada za mjernu uslugu/mj:</label>
-        <input type="number" name="mjernaUsluga" id="mjernaUsluga" min="0" max="1" step="0.000001" value="0.014000">
+        <input type="number" name="mjernaUsluga" id="mjernaUsluga" min="0" max="10" step="0.01" value="1.54">
         <br>
         <label for="popust">Popust za solidarnu naknadu eur/kWh:</label>
         <input type="number" name="popust" id="popust" min="0" max="1" step="0.000001" value="0.003982">
@@ -140,8 +140,8 @@
     <br>
     <label for="investicija">Procjenjeni iznos izgradnje elektrane:</label>
     <input type="number" name="investicija" id="investicija" min="0" max="10000" step="1" value="3200">eur
-    <p>Potrebna površina krova: <span>12,8m2</span></p>
-    <p>Vrijeme povrata investicije: <span>10,7 god</span></p>
+    <p>Potrebna površina krova: <span id="povrsinaKrova">12.8 m<sup>2</sup></span></p>
+    <p>Vrijeme povrata investicije: <span id="povratInvesticije">10.7 god</span></p>
     <h4>pregled po mjesecima</h4>
     <table>
         <thead>
