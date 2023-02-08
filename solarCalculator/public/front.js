@@ -22,7 +22,7 @@ const otkupVT = document.querySelector("#otkupVT").value;
 const opskrba = document.querySelector("#opskrba").value;
 const oie = document.querySelector("#oie").value;
 const mjernaUsluga = document.querySelector("#mjernaUsluga").value;
-const popust = document.querySelector("#popust").value;
+const pdv = parseInt(document.querySelector("#pdv").value);
 
 let elektranakw = document.querySelector("#elektranakw");
 let investicija = document.querySelector("#investicija");
@@ -112,16 +112,17 @@ const setInputs = () => {
     }
 }
 
-const setElektranaInputs = () => {
-    const zbrojPotrosnje = potrosnjaVT.reduce((sum, curr) => sum + curr) + potrosnjaNT.reduce((sum, curr) => sum + curr);
-    // console.log("zbrojPotrosnje",zbrojPotrosnje);
-    elektranakw.value = Math.round((zbrojPotrosnje * 0.5) / 100) / 10;
-}
-
-const izracunInvesticije = () => {
-    investicija.value = (elektranakw.value * 700) + 2500;
-    povrsinaKrova.innerHTML = `${(elektranakw.value / 0.4) * 2} m<sup>2</sup>`;
+//
+const izracunInvesticije = (calcObj) => {
+    investicija.value = (elektranakw.value * 700) + 1500;
+    let povrs = Math.round(((elektranakw.value / 0.4) * 2) * 100) / 100;
+    povrsinaKrova.innerHTML = `${povrs} m<sup>2</sup>`;
     // povratInvesticije ostalo za izračunati
+
+    const ukupnoPrijeSolara = calcObj.iznosRacunaBezSolara.reduce((sum, curr) => sum + curr);
+    const ukupnoNakonSolara = calcObj.iznosRacuna.reduce((sum, curr) => sum + curr);
+    const godisnjaUsteda = ukupnoPrijeSolara - ukupnoNakonSolara;
+    povratInvesticije.innerHTML = Math.round((investicija.value / godisnjaUsteda) * 10) / 10;
 }
 
 
@@ -154,16 +155,27 @@ const fetchData = async (city) => {
     return data;
 }
 
+// get mjesecne vrijednosti solara 
 const populateSolarArray = (data) => {
     const arrData = data.outputs.monthly.fixed;
-    return arrData.map(month => parseInt(month.E_m * elektranakw.value));
+    const ukupnaGodProizvodnja = data.outputs.totals.fixed.E_y;
+    const ukupnaGodPotrosnja = potrosnjaVT.reduce((sum, curr) => sum + curr);
+    const ocekivanjaProizvodnja = ukupnaGodPotrosnja * 0.95;
+    const velicinaElektrane = Math.round((ocekivanjaProizvodnja / ukupnaGodProizvodnja) * 10) / 10;
+
+    elektranakw.value = velicinaElektrane;
+    return arrData.map(month => parseInt(month.E_m * velicinaElektrane));
 }
 
+
+// izrada objekta s svim podacima, ulaznim i izračunatim
 const createCalculationObject = () => {
     let kupljenoHep = [];
     let prodanoHep = [];
     let kupljenoIznosNT = [];
     let prodanoIznos = [];
+
+    // izračun kupljenih i prodanih kWh nakon solara
 
     for (i = 0; i < potrosnjaVT.length; i++) {
         razlika = potrosnjaVT[i] - solar[i];
@@ -176,8 +188,10 @@ const createCalculationObject = () => {
         }
     }
 
-    let kupljenoIznosVTprijeSolara = [...kupljenoHep];
-    kupljenoIznosVTprijeSolara.forEach((item, i, arr) => {
+    // izračun iznosa: VT, NT i prodano 
+
+    let kupljenoIznosVTbezPretplate = [...kupljenoHep];
+    kupljenoIznosVTbezPretplate.forEach((item, i, arr) => {
         arr[i] = Math.round((item * cijenaVT + item * prijenosVT + item * distVT + item * oie) * 100) / 100;
     })
     kupljenoIznosNT = [...potrosnjaNT];
@@ -189,10 +203,12 @@ const createCalculationObject = () => {
         arr[i] = Math.round((item * otkupVT) * 100) / 100;
     })
 
-    let kupljenoIznosVT = [...kupljenoIznosVTprijeSolara];
+    // izračun dijela računa s VT iznosom umanjen za prodani dio, izračun pretplate
+
+    let kupljenoIznosVT = [...kupljenoIznosVTbezPretplate];
     let pretplata = 0;
     kupljenoIznosVT.forEach((item, i, arr) => {
-        const rez = kupljenoIznosVTprijeSolara[i] - prodanoIznos[i];
+        const rez = kupljenoIznosVTbezPretplate[i] - prodanoIznos[i];
         if (rez > 0 && pretplata <= 0) {
             kupljenoIznosVT[i] = rez;
         } else if (rez > 0 && pretplata > 0) {
@@ -209,6 +225,23 @@ const createCalculationObject = () => {
         }
     });
 
+    // izračun iznosa računa VT+NT+naknade
+    // (kupljenoIznosVT + kupljenoIznosNT + mjernaUsluga + opskrba) * pdv
+    let iznosRacuna = [...kupljenoIznosVT];
+    iznosRacuna.forEach((item, i, arr) => {
+        let value = (arr[i] + kupljenoIznosNT[i] + Number(mjernaUsluga) + Number(opskrba)) * (Number(pdv) / 100 + 1);
+        iznosRacuna[i] = Math.round(value * 100) / 100;
+    })
+
+    // izračun iznosa računa prije solara
+    // (potrosnjaVT * cijena + potrosnjaVT * prijenos + potrosnjaVT * distribucija + potrosnjaVT * oie
+    // + kupljenoIznosNT + mjernaUsluga + opskrba) * pdv
+    let iznosRacunaBezSolara = [...potrosnjaVT];
+    iznosRacunaBezSolara.forEach((item, i, arr) => {
+        let kupljenoIzVT = (item * cijenaVT + item * prijenosVT + item * distVT + item * oie);
+        let ukupno = (kupljenoIzVT + kupljenoIznosNT[i] + Number(mjernaUsluga) + Number(opskrba)) * (Number(pdv) / 100 + 1);
+        arr[i] = Math.round(ukupno * 100) / 100;
+    })
 
     return {
         monthNames, // nazivi mjeseci
@@ -217,24 +250,24 @@ const createCalculationObject = () => {
         solar, // kWh proizvedeni
         kupljenoHep, //kWh kupljeni od hepa
         prodanoHep, //kWh prodani hepu
-        kupljenoIznosVTprijeSolara, // eur VT energija, distribucija, prijenos
+        kupljenoIznosVTbezPretplate, // eur VT energija, distribucija, prijenos bez prijenosa pretplaćenog dijela
         kupljenoIznosNT, // eur NT energija, distribucija, prijenos
         prodanoIznos, // eur prodano hepu
         kupljenoIznosVT, // eur VT dijela, umanjen za prodani dio
-        pretplata // eur pretplata na kraju godine - treba biti 0
+        pretplata, // eur pretplata na kraju godine - treba biti 0
+        iznosRacuna, // eur iznos racuna, VT+NT+naknade+pdv
+        iznosRacunaBezSolara // eur iznos racuna bez solarne elektrane, VT+NT+naknade+pdv
     };
 }
 
 
 const izracunavaj = async () => {
     setInputs(); //složi inpute u varijable 
-    setElektranaInputs();
-    //const solarData = await fetchData(); // dohvati podatke o solarima
-    //solar = populateSolarArray(solarData); // posloži array s podacima od pvgis
-    izracunInvesticije();
+    const solarData = await fetchData(); // dohvati podatke o solarima
+    solar = populateSolarArray(solarData); // posloži array s podacima od pvgis
     const calculationObj = createCalculationObject(); // izrada objekta s svim izračunima za mjesece
+    izracunInvesticije(calculationObj);
     console.log(calculationObj);
-    // preračunaj
     // napravi i popuni tablicu
 }
 
