@@ -4,30 +4,13 @@ const lokacija = document.querySelector("#lokacija");
 const krovAzimut = document.querySelector("#orjentacija");
 const krovNagib = document.querySelector("#nagib");
 
-const sjecanjVT = document.querySelector("#sjecanj-VT");
-const sjecanjNT = document.querySelector("#sjecanj-NT");
-const veljacaVT = document.querySelector("#veljaca-VT");
-const veljacaNT = document.querySelector("#veljaca-NT");
-const ozujakVT = document.querySelector("#ozujak-VT");
-const ozujakNT = document.querySelector("#ozujak-NT");
-const travanjVT = document.querySelector("#travanj-VT");
-const travanjNT = document.querySelector("#travanj-NT");
-const svibanjVT = document.querySelector("#svibanj-VT");
-const svibanjNT = document.querySelector("#svibanj-NT");
-const lipanjVT = document.querySelector("#lipanj-VT");
-const lipanjNT = document.querySelector("#lipanj-NT");
-const srpanjVT = document.querySelector("#srpanj-VT");
-const srpanjNT = document.querySelector("#srpanj-NT");
-const kolovozVT = document.querySelector("#kolovoz-VT");
-const kolovozNT = document.querySelector("#kolovoz-NT");
-const rujanVT = document.querySelector("#rujan-VT");
-const rujanNT = document.querySelector("#rujan-NT");
-const listopadVT = document.querySelector("#listopad-VT");
-const listopadNT = document.querySelector("#listopad-NT");
-const studeniVT = document.querySelector("#studeni-VT");
-const studeniNT = document.querySelector("#studeni-NT");
-const prosinacVT = document.querySelector("#prosinac-VT");
-const prosinacNT = document.querySelector("#prosinac-NT");
+const monthNames = ["sjecanj", "veljaca", "ozujak", "travanj", "svibanj", "lipanj", "srpanj", "kolovoz", "rujan", "listopad", "studeni", "prosinac"];
+let potrosnjaVT = [];
+let potrosnjaNT = [];
+let solar1kw = [];
+let azimut;
+let lat;
+let lon;
 
 const prodVT = document.querySelector("#prodVT");
 const prodNT = document.querySelector("#prodNT");
@@ -44,12 +27,9 @@ const popust = document.querySelector("#popust");
 const elektranakw = document.querySelector("#elektranakw");
 const investicija = document.querySelector("#investicija");
 
-let azimut;
-let lat;
-let lon;
 
 // define variables based on user selection
-function setInputs() {
+const setInputs = () => {
     switch (krovAzimut.value) {
         case "S":
             azimut = 180;
@@ -124,6 +104,11 @@ function setInputs() {
             break;
     }
 
+    for (const month in monthNames) {
+        potrosnjaVT[month] = document.querySelector(`#${monthNames[month]}-VT`).value;
+        potrosnjaNT[month] = document.querySelector(`#${monthNames[month]}-NT`).value;
+    }
+
 }
 
 // fetch data from API
@@ -151,14 +136,22 @@ const fetchData = async (city) => {
         alert('Invalid API Key')
         return
     }
-    console.log(data);
+    // console.log(data);
+    return data;
 }
 
+const populateSolarArray = (data) => {
+    const arrData = data.outputs.monthly.fixed;
+    return arrData.map(month => month.E_m);
+}
+
+
 const izracunavaj = async () => {
-    setInputs()
-    await fetchData();
-    // posloži array s podacima od pvgis
-    // složi array s podacima potrošnje struje
+    setInputs(); //složi inpute u varijable 
+    const solarData = await fetchData(); // dohvati podatke o solarima
+    solar1kw = populateSolarArray(solarData); // posloži array s podacima od pvgis
+
+    
     // preračunaj
     // napravi i popuni tablicu
 }
