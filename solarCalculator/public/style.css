@@ -19,6 +19,7 @@ body {
 table,th,td {
     border-collapse: collapse;
     border: 1px solid grey;
+    color: rgb(59, 59, 161);
 }
 
 fieldset label {

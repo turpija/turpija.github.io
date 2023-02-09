@@ -269,27 +269,63 @@ const createCalculationObject = () => {
 
 // izrada i popunjavanje tablice
 const createTable = (obj) => {
-    let table = document.createElement('table');
+    //init table
+    // let table = document.createElement('table');
+    let table = document.querySelector("#tableCalc");
+    table.innerHTML = "";
+    
     let data = [obj.monthNames, obj.potrosnjaVT, obj.potrosnjaNT, obj.solar, obj.kupljenoHep, obj.prodanoHep, obj.iznosRacuna, obj.iznosRacunaBezSolara];
-    let columnNames = ["mjesec", "potrošeno VT", "potrošeno NT", "solar", "kupljeno od HEPa","prodano HEPu", "iznos računa", "iznos računa prije solara"];
+    let columnNames = ["mjesec", "potrošeno VT", "potrošeno NT", "solar", "kupljeno od HEPa", "prodano HEPu", "iznos računa", "iznos računa prije solara"];
+    let footerArr = [
+        "UKUPNO:",
+        obj.potrosnjaVT.reduce((sum, curr) => sum + curr),
+        obj.potrosnjaNT.reduce((sum, curr) => sum + curr),
+        obj.solar.reduce((sum, curr) => sum + curr),
+        obj.kupljenoHep.reduce((sum, curr) => sum + curr),
+        obj.prodanoHep.reduce((sum, curr) => sum + curr),
+        Math.round((obj.iznosRacuna.reduce((sum, curr) => sum + curr)) * 100) / 100,
+        Math.round((obj.iznosRacunaBezSolara.reduce((sum, curr) => sum + curr)) * 100) / 100,
+    ];
 
     // izrada thead
-    let newRow = table.insertRow();
+    let tableHead = document.createElement("THEAD");
+    table.appendChild(tableHead);
+    let newRow = tableHead.insertRow();
+
     for (let cell of columnNames) {
-        let newCell = newRow.insertCell()
-        newCell.innerHTML = cell;
+        var headerCell = document.createElement("TH");
+        headerCell.innerHTML = cell;
+        newRow.appendChild(headerCell);
     }
 
     // izrada tbody
+    let tableBody = document.createElement("TBODY");
+    table.appendChild(tableBody);
+
     for (let red = 0; red < 12; red++) {
-        let newRow = table.insertRow();
+        let newRow = tableBody.insertRow();
+
+        // let newRow = table.insertRow();
         for (let stupac = 0; stupac < data.length; stupac++) {
             let newCell = newRow.insertCell();
             newCell.innerHTML = data[stupac][red];
-            console.log(`data[${stupac}][${red}]`, data[stupac][red]); // red
+            // console.log(`data[${stupac}][${red}]`, data[stupac][red]); // red
         }
     }
 
+    //izrada tfoot
+    let tableFoot = document.createElement("TFOOT");
+    table.appendChild(tableFoot);
+    let footRow = tableFoot.insertRow();
+
+    for (let cell of footerArr) {
+        console.log("cell", cell);
+        let footerCell = footRow.insertCell();
+        footerCell.innerHTML = cell;
+    }
+
+
+    //dodavanje table u DOM
     document.body.appendChild(table);
 }
 
@@ -306,7 +342,7 @@ const izracunavaj = async () => {
 
 }
 
-izracunavaj();
+// izracunavaj();
 
 const fetchBtn = document.querySelector("#fetch");
 fetchBtn.addEventListener("click", izracunavaj);
