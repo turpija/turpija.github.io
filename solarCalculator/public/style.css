@@ -31,8 +31,60 @@ body {
     padding: 20px;
 }
 
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    background: linear-gradient(105deg, #ff0000 0%, #ff0000 40%, #ffffff 50%, #2e39a3 60%, #2e39a3 100%);
+    opacity: 0.25;
+}
+
+.head {
+    display: flex;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+h3,
+h5 {
+    text-align: center;
+}
+
+h6 {
+    text-align: right;
+    padding-right: 20%;
+}
+
+footer {
+    text-align: center;
+    background-color: var(--cTextLight);
+}
+
+a,
+a:visited,
+a:active {
+    color: var(--cTextDark)
+}
+
+ul {
+    margin-top: 20px;
+    list-style-type: "- ";
+}
+
+.small {
+    font-size: 13px;
+}
+
 button {
-    padding: 5px 20px;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 30px;
+    background-color: var(--cPrimary);
+    border-radius: 3px;
+    border: var(--cTableBorder);
+    color: var(--cTextLight);
+    box-shadow: var(--shadow);
 }
 
 hr {
@@ -40,6 +92,19 @@ hr {
     height: 1px;
     color: var(--cTextDark);
     margin: 5px 0;
+}
+
+sup {
+    font-size: 11rem;
+    vertical-align: top;
+}
+
+#izracun {
+    margin: 40px 0;
+}
+
+#izracun span {
+    font-weight: 700;
 }
 
 
@@ -52,10 +117,6 @@ table {
     position: relative;
     border-spacing: 0;
 
-}
-
-table * {
-    /* border: none; */
 }
 
 .tableContainer {
@@ -204,27 +265,33 @@ fieldset#naknade input {
 
 fieldset#upis>div>div>span {
     align-self: flex-end;
-    /* border: 1px solid blue; */
 
 }
 
 fieldset#upis>div {
-    /* border: 1px solid green; */
     display: flex;
     justify-content: space-between;
 }
 
-fieldset#upis>div>div {
-    /* border: 1px solid red; */
+
+fieldset#objekt>div {
     display: flex;
-    /* flex-wrap: wrap; */
-    flex-direction: column;
+    justify-content: space-between;
 }
 
+fieldset#objekt select {
+    border: var(--cTableBorder);
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin: 5px;
+    margin: 10px 5px;
+    width: 110px;
+}
+
+fieldset#upis>div>div,
 fieldset#naknade>div>div {
     display: flex;
     flex-direction: column;
-    /* border: 1px solid red; */
 }
 
 
@@ -245,10 +312,6 @@ fieldset span {
 
 
 @media only screen and (min-width: 450px) {
-    body {
-        /* background-color: rgb(222, 246, 254); */
-    }
-
 
     fieldset#upis>div>div {
         flex-direction: row;
@@ -267,3 +330,5 @@ fieldset span {
         margin: 10px 5px;
     }
 }
+
+

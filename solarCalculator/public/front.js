@@ -12,18 +12,22 @@ let azimut;
 let lat;
 let lon;
 
-const cijenaVT = document.querySelector("#cijenaVT").value;
-const cijenaNT = document.querySelector("#cijenaNT").value;
-const prijenosVT = document.querySelector("#prijenosVT").value;
-const prijenosNT = document.querySelector("#prijenosNT").value;
-const distVT = document.querySelector("#distVT").value;
-const distNT = document.querySelector("#distNT").value;
-const otkupVT = document.querySelector("#otkupVT").value;
-const opskrba = document.querySelector("#opskrba").value;
-const oie = document.querySelector("#oie").value;
-const mjernaUsluga = document.querySelector("#mjernaUsluga").value;
-const pdv = parseInt(document.querySelector("#pdv").value);
+let cijenaVT;
+let cijenaNT;
+let prijenosVT;
+let prijenosNT;
+let distVT;
+let distNT;
+let otkupVT;
+let opskrba;
+let oie;
+let mjernaUsluga;
+let pdv;
 
+const allInputs = document.querySelectorAll("input");
+const allDropDowns = document.querySelectorAll("select");
+
+let table = document.querySelector("#tableCalc");
 let elektranakw = document.querySelector("#elektranakw");
 let investicija = document.querySelector("#investicija");
 let povrsinaKrova = document.querySelector("#povrsinaKrova");
@@ -33,8 +37,75 @@ let ukupnoPotrosenoNT = document.querySelector("#ukupnoPotrosenoNT");
 let ukupnoProizvedeno = document.querySelector("#ukupnoProizvedeno");
 
 
+const cleanStart = () => {
+    let upisInputi = document.querySelectorAll("#upis input");
+    table.innerHTML = "";
+    upisInputi.forEach((e) => {
+        e.value = "";
+    })
+
+    elektranakw.innerHTML = "--";
+    investicija.innerHTML = "-";
+    povrsinaKrova.innerHTML = "-";
+    povratInvesticije.innerHTML = "-";
+    ukupnoPotrosenoVT.innerHTML = "-";
+    ukupnoPotrosenoNT.innerHTML = "-";
+    ukupnoProizvedeno.innerHTML = "-";
+
+}
+
+const checkInputData = () => {
+    let nedostaje = "";
+    let upisInputi = document.querySelectorAll("#upis input");
+    upisInputi.forEach((e) => provjeri(e));
+
+    function provjeri(e) {
+        console.log("e.value",e.value);
+        if (e.value == "") {
+            // console.log("nedostaje",e.id);
+            nedostaje += `${e.id} `;
+        }
+    }
+
+    if (nedostaje == "") {
+        console.log("sve ok, nastavi");
+        fetchBtn.style.display = "none";
+        enableDynamicRecalculate();
+    } else if (nedostaje != "") {
+        console.log("nesto nedostaje");
+        alert(`UPIŠI: ${nedostaje}`);
+    }
+
+}
+
+// add event listener na sve inpute, change => recalculate
+const enableDynamicRecalculate = () => {
+    allInputs.forEach((e) => {
+        e.addEventListener("change", recalculate)
+    });
+    allDropDowns.forEach((e) => {
+        e.addEventListener("change", recalculate)
+    });
+
+}
+
+
+
 // define variables based on user selection
 const setInputs = () => {
+
+    cijenaVT = document.querySelector("#cijenaVT").value;
+    cijenaNT = document.querySelector("#cijenaNT").value;
+    prijenosVT = document.querySelector("#prijenosVT").value;
+    prijenosNT = document.querySelector("#prijenosNT").value;
+    distVT = document.querySelector("#distVT").value;
+    distNT = document.querySelector("#distNT").value;
+    otkupVT = document.querySelector("#otkupVT").value;
+    opskrba = document.querySelector("#opskrba").value;
+    oie = document.querySelector("#oie").value;
+    mjernaUsluga = document.querySelector("#mjernaUsluga").value;
+    pdv = parseInt(document.querySelector("#pdv").value);
+
     switch (krovAzimut.value) {
         case "S":
             azimut = 180;
@@ -117,14 +188,14 @@ const setInputs = () => {
 
 // izračun iznosa investicije i povrat
 const izracunInvesticije = (calcObj) => {
-    investicija.value = (elektranakw.value * 700) + 1500;
-    let povrs = Math.round(((elektranakw.value / 0.4) * 2) * 100) / 100;
-    povrsinaKrova.innerHTML = `${povrs} m<sup>2</sup>`;
+    investicija.innerHTML = (elektranakw.innerHTML * 700) + 1500;
+    let povrs = Math.round(((elektranakw.innerHTML / 0.4) * 2) * 100) / 100;
+    povrsinaKrova.innerHTML = povrs;
 
     const ukupnoPrijeSolara = calcObj.iznosRacunaBezSolara.reduce((sum, curr) => sum + curr);
     const ukupnoNakonSolara = calcObj.iznosRacuna.reduce((sum, curr) => sum + curr);
     const godisnjaUsteda = ukupnoPrijeSolara - ukupnoNakonSolara;
-    povratInvesticije.innerHTML = Math.round((investicija.value / godisnjaUsteda) * 10) / 10;
+    povratInvesticije.innerHTML = Math.round((investicija.innerHTML / godisnjaUsteda) * 10) / 10;
 }
 
 
@@ -166,7 +237,7 @@ const populateSolarArray = (data) => {
     const ocekivanjaProizvodnja = ukupnaGodPotrosnjaVT * 0.95;
     const velicinaElektrane = Math.round((ocekivanjaProizvodnja / ukupnaGodProizvodnja) * 10) / 10;
 
-    elektranakw.value = velicinaElektrane;
+    elektranakw.innerHTML = velicinaElektrane;
     ukupnoPotrosenoVT.innerHTML = Math.round(ukupnaGodPotrosnjaVT);
     ukupnoPotrosenoNT.innerHTML = Math.round(ukupnaGodPotrosnjaNT);
     ukupnoProizvedeno.innerHTML = Math.round(ocekivanjaProizvodnja);
@@ -183,7 +254,6 @@ const createCalculationObject = () => {
     let prodanoIznos = [];
 
     // izračun kupljenih i prodanih kWh nakon solara
-
     for (i = 0; i < potrosnjaVT.length; i++) {
         razlika = potrosnjaVT[i] - solar[i];
         if (razlika < 0) {
@@ -196,7 +266,6 @@ const createCalculationObject = () => {
     }
 
     // izračun iznosa: VT, NT i prodano 
-
     let kupljenoIznosVTbezPretplate = [...kupljenoHep];
     kupljenoIznosVTbezPretplate.forEach((item, i, arr) => {
         arr[i] = Math.round((item * cijenaVT + item * prijenosVT + item * distVT + item * oie) * 100) / 100;
@@ -211,7 +280,6 @@ const createCalculationObject = () => {
     })
 
     // izračun dijela računa s VT iznosom umanjen za prodani dio, izračun pretplate
-
     let kupljenoIznosVT = [...kupljenoIznosVTbezPretplate];
     let pretplata = 0;
     kupljenoIznosVT.forEach((item, i, arr) => {
@@ -271,9 +339,9 @@ const createCalculationObject = () => {
 const createTable = (obj) => {
     //init table
     // let table = document.createElement('table');
-    let table = document.querySelector("#tableCalc");
+
     table.innerHTML = "";
-    
+
     let data = [obj.monthNames, obj.potrosnjaVT, obj.potrosnjaNT, obj.solar, obj.kupljenoHep, obj.prodanoHep, obj.iznosRacuna, obj.iznosRacunaBezSolara];
     let columnNames = ["mjesec", "potrošeno VT", "potrošeno NT", "solar", "kupljeno od HEPa", "prodano HEPu", "iznos računa", "iznos računa prije solara"];
     let footerArr = [
@@ -319,30 +387,44 @@ const createTable = (obj) => {
     let footRow = tableFoot.insertRow();
 
     for (let cell of footerArr) {
-        console.log("cell", cell);
+        // console.log("cell", cell);
         let footerCell = footRow.insertCell();
         footerCell.innerHTML = cell;
     }
 
-
-    //dodavanje table u DOM
-    document.body.appendChild(table);
 }
 
 
 const izracunavaj = async () => {
+    checkInputData(); // jesu li svi inputi ok?
+    // wait till fetch function - disable window
     setInputs(); //složi inpute u varijable 
     const solarData = await fetchData(); // dohvati podatke o solarima
     solar = populateSolarArray(solarData); // posloži array s podacima od pvgis
     const calculationObj = createCalculationObject(); // izrada objekta s svim izračunima za mjesece
-    izracunInvesticije(calculationObj); //
+    izracunInvesticije(calculationObj); // izračun iznosa investicije i povrat
     createTable(calculationObj); // napravi i popuni tablicu
+    // fetch done function - enable window
     console.log(calculationObj);
 
 
 }
 
+const recalculate = () => {
+    console.log("preračunavam...");
+    izracunavaj();
+}
+
 // izracunavaj();
+
+// add event listener na sve inpute, click => select content
+allInputs.forEach((e) => {
+    e.addEventListener("click", () => {
+        e.select();
+    })
+});
+
 
 const fetchBtn = document.querySelector("#fetch");
 fetchBtn.addEventListener("click", izracunavaj);
+cleanStart();
