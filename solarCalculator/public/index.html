@@ -7,293 +7,387 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Isplativost solara</title>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+
     <script src="front.js" defer></script>
 </head>
 
 <body>
-    <h3>Ulazni podaci</h3>
-    <label for="lokacija">Lokacija:</label>
-    <select name="lokacija" id="lokacija">
-        <option value="daruvar">Daruvar</option>
-        <option value="dubrovnik">Dubrovnik</option>
-        <option value="gospic">Gospić</option>
-        <option value="karlovac">Karlovac</option>
-        <option value="osijek" selected>Osijek</option>
-        <option value="pula">Pula</option>
-        <option value="rijeka">Rijeka</option>
-        <option value="split">Split</option>
-        <option value="varazdin">Varaždin</option>
-        <option value="zadar">Zadar</option>
-        <option value="zagreb">Zagreb</option>
-    </select>
-    <br>
-    <label for="orjentacija">Orjentacija krova:</label>
-    <select name="orjentacija" id="orjentacija">prosinac
-        <option value="S">Sjever</option>
-        <option value="I">Istok</option>
-        <option value="J" selected>Jug</option>
-        <option value="Z">Zapad</option>
-        <option value="SI">Sjeveroistok</option>
-        <option value="SZ">Sjeverozapad</option>
-        <option value="JI">Jugoistok</option>
-        <option value="JZ">Jugozapad</option>
-    </select>
-    <br>
-    <label for="nagib">Nagib krova (°):</label>
-    <input type="number" name="nagib" id="nagib" step="5" min="10" max="60" value="30">
-    <br>
-    <button id="fetch">izračunaj</button>
-    <br>
-    <fieldset>
-        <legend>Upis potrošnje (kWh): </legend>
-        <label for="sjecanj-VT">Sječanj</label>
-        <span>VT: <input type="number" name="sjecanj-VT" id="sjecanj-VT" min="1" max="500" value="125">kWh</span>
-        <span>NT: <input type="number" name="sjecanj-NT" id="sjecanj-NT" min="1" max="500" value="75">kWh</span>
+    <div class="container">
+        <h3>Ulazni podaci</h3>
+        <label for="lokacija">Lokacija:</label>
+        <select name="lokacija" id="lokacija">
+            <option value="daruvar">Daruvar</option>
+            <option value="dubrovnik">Dubrovnik</option>
+            <option value="gospic">Gospić</option>
+            <option value="karlovac">Karlovac</option>
+            <option value="osijek" selected>Osijek</option>
+            <option value="pula">Pula</option>
+            <option value="rijeka">Rijeka</option>
+            <option value="split">Split</option>
+            <option value="varazdin">Varaždin</option>
+            <option value="zadar">Zadar</option>
+            <option value="zagreb">Zagreb</option>
+        </select>
         <br>
-        <label for="veljaca-VT">Veljača</label>
-        <span> VT: <input type="number" name="veljaca-VT" id="veljaca-VT" min="1" max="500" value="128">kWh</span>
-        <span> NT: <input type="number" name="veljaca-NT" id="veljaca-NT" min="1" max="500" value="115">kWh</span>
+        <label for="orjentacija">Orjentacija krova:</label>
+        <select name="orjentacija" id="orjentacija">prosinac
+            <option value="S">Sjever</option>
+            <option value="I">Istok</option>
+            <option value="J" selected>Jug</option>
+            <option value="Z">Zapad</option>
+            <option value="SI">Sjeveroistok</option>
+            <option value="SZ">Sjeverozapad</option>
+            <option value="JI">Jugoistok</option>
+            <option value="JZ">Jugozapad</option>
+        </select>
         <br>
-        <label for="ozujak-VT">Ožujak</label>
-        <span> VT: <input type="number" name="ozujak-VT" id="ozujak-VT" min="1" max="500" value="149">kWh</span>
-        <span> NT: <input type="number" name="ozujak-NT" id="ozujak-NT" min="1" max="500" value="88">kWh</span>
+        <label for="nagib">Nagib krova (°):</label>
+        <input type="number" name="nagib" id="nagib" step="5" min="10" max="60" value="30">
         <br>
-        <label for="travanj-VT">Travanj</label>
-        <span> VT: <input type="number" name="travanj-VT" id="travanj-VT" min="1" max="500" value="159">kWh</span>
-        <span> NT: <input type="number" name="travanj-NT" id="travanj-NT" min="1" max="500" value="88">kWh</span>
+        <button id="fetch">izračunaj</button>
         <br>
-        <label for="svibanj-VT">Svibanj</label>
-        <span> VT: <input type="number" name="svibanj-VT" id="svibanj-VT" min="1" max="500" value="138">kWh</span>
-        <span> NT: <input type="number" name="svibanj-NT" id="svibanj-NT" min="1" max="500" value="75">kWh</span>
-        <br>
-        <label for="lipanj-VT">Lipanj</label>
-        <span> VT: <input type="number" name="lipanj-VT" id="lipanj-VT" min="1" max="500" value="167">kWh</span>
-        <span> NT: <input type="number" name="lipanj-NT" id="lipanj-NT" min="1" max="500" value="81">kWh</span>
-        <br>
-        <label for="srpanj-VT">Srpanj</label>
-        <span> VT: <input type="number" name="srpanj-VT" id="srpanj-VT" min="1" max="500" value="186">kWh</span>
-        <span> NT: <input type="number" name="srpanj-NT" id="srpanj-NT" min="1" max="500" value="54">kWh</span>
-        <br>
-        <label for="kolovoz-VT">Kolovoz</label>
-        <span> VT: <input type="number" name="kolovoz-VT" id="kolovoz-VT" min="1" max="500" value="174">kWh</span>
-        <span> NT: <input type="number" name="kolovoz-NT" id="kolovoz-NT" min="1" max="500" value="62">kWh</span>
-        <br>
-        <label for="rujan-VT">Rujan</label>
-        <span> VT: <input type="number" name="rujan-VT" id="rujan-VT" min="1" max="500" value="118">kWh</span>
-        <span> NT: <input type="number" name="rujan-NT" id="rujan-NT" min="1" max="500" value="51">kWh</span>
-        <br>
-        <label for="listopad-VT">Listopad</label>
-        <span> VT: <input type="number" name="listopad-VT" id="listopad-VT" min="1" max="500" value="156">kWh</span>
-        <span> NT: <input type="number" name="listopad-NT" id="listopad-NT" min="1" max="500" value="97">kWh</span>
-        <br>
-        <label for="studeni-VT">Studeni</label>
-        <span> VT: <input type="number" name="studeni-VT" id="studeni-VT" min="1" max="500" value="130">kWh</span>
-        <span> NT: <input type="number" name="studeni-NT" id="studeni-NT" min="1" max="500" value="104">kWh</span>
-        <br>
-        <label for="prosinac-VT">Prosinac</label>
-        <span> VT: <input type="number" name="prosinac-VT" id="prosinac-VT" min="1" max="500" value="144">kWh</span>
-        <span> NT: <input type="number" name="prosinac-NT" id="prosinac-NT" min="1" max="500" value="116">kWh</span>
-    </fieldset>
+        <fieldset id="upis">
+            <legend>Upis potrošnje (kWh): </legend>
+            <hr>
+            <div>
+                <label for="sjecanj-VT">Sječanj</label>
+                <div>
+                    <span>VT: <input type="number" name="sjecanj-VT" id="sjecanj-VT" min="1" max="500"
+                            value="125">kWh</span>
+                    <span>NT: <input type="number" name="sjecanj-NT" id="sjecanj-NT" min="1" max="500"
+                            value="75">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <label for="veljaca-VT">Veljača</label>
+                <div>
+                    <span> VT: <input type="number" name="veljaca-VT" id="veljaca-VT" min="1" max="500"
+                            value="128">kWh</span>
+                    <span> NT: <input type="number" name="veljaca-NT" id="veljaca-NT" min="1" max="500"
+                            value="115">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div> <label for="ozujak-VT">Ožujak</label>
+                <div>
+                    <span> VT: <input type="number" name="ozujak-VT" id="ozujak-VT" min="1" max="500"
+                            value="149">kWh</span>
+                    <span> NT: <input type="number" name="ozujak-NT" id="ozujak-NT" min="1" max="500"
+                            value="88">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div> <label for="travanj-VT">Travanj</label>
+                <div>
+                    <span> VT: <input type="number" name="travanj-VT" id="travanj-VT" min="1" max="500"
+                            value="159">kWh</span>
+                    <span> NT: <input type="number" name="travanj-NT" id="travanj-NT" min="1" max="500"
+                            value="88">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div> <label for="svibanj-VT">Svibanj</label>
+                <div>
+                    <span> VT: <input type="number" name="svibanj-VT" id="svibanj-VT" min="1" max="500"
+                            value="138">kWh</span>
+                    <span> NT: <input type="number" name="svibanj-NT" id="svibanj-NT" min="1" max="500"
+                            value="75">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div> <label for="lipanj-VT">Lipanj</label>
+                <div>
+                    <span> VT: <input type="number" name="lipanj-VT" id="lipanj-VT" min="1" max="500"
+                            value="167">kWh</span>
+                    <span> NT: <input type="number" name="lipanj-NT" id="lipanj-NT" min="1" max="500"
+                            value="81">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div> <label for="srpanj-VT">Srpanj</label>
+                <div>
+                    <span> VT: <input type="number" name="srpanj-VT" id="srpanj-VT" min="1" max="500"
+                            value="186">kWh</span>
+                    <span> NT: <input type="number" name="srpanj-NT" id="srpanj-NT" min="1" max="500"
+                            value="54">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div> <label for="kolovoz-VT">Kolovoz</label>
+                <div>
+                    <span> VT: <input type="number" name="kolovoz-VT" id="kolovoz-VT" min="1" max="500"
+                            value="174">kWh</span>
+                    <span> NT: <input type="number" name="kolovoz-NT" id="kolovoz-NT" min="1" max="500"
+                            value="62">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div> <label for="rujan-VT">Rujan</label>
+                <div>
+                    <span> VT: <input type="number" name="rujan-VT" id="rujan-VT" min="1" max="500"
+                            value="118">kWh</span>
+                    <span> NT: <input type="number" name="rujan-NT" id="rujan-NT" min="1" max="500"
+                            value="51">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div> <label for="listopad-VT">Listopad</label>
+                <div>
+                    <span> VT: <input type="number" name="listopad-VT" id="listopad-VT" min="1" max="500"
+                            value="156">kWh</span>
+                    <span> NT: <input type="number" name="listopad-NT" id="listopad-NT" min="1" max="500"
+                            value="97">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div> <label for="studeni-VT">Studeni</label>
+                <div>
+                    <span> VT: <input type="number" name="studeni-VT" id="studeni-VT" min="1" max="500"
+                            value="130">kWh</span>
+                    <span> NT: <input type="number" name="studeni-NT" id="studeni-NT" min="1" max="500"
+                            value="104">kWh</span>
+                </div>
+            </div>
+            <hr>
+            <div> <label for="prosinac-VT">Prosinac</label>
+                <div>
+                    <span> VT: <input type="number" name="prosinac-VT" id="prosinac-VT" min="1" max="500"
+                            value="144">kWh</span>
+                    <span> NT: <input type="number" name="prosinac-NT" id="prosinac-NT" min="1" max="500"
+                            value="116">kWh</span>
+                </div>
+            </div>
+        </fieldset>
 
-    <fieldset id="naknade">
-        <legend>HEP cijene i naknade:</legend>
-        <label for="cijenaVT">Cijena energije eur/kWh VT:</label>
-        <input type="number" name="cijenaVT" id="cijenaVT" min="0" max="1" step="0.000001" value="0.074789">
-        <br>
-        <label for="cijenaNT">Cijena energije eur/kWh NT:</label>
-        <input type="number" name="cijenaNT" id="cijenaNT" min="0" max="1" step="0.000001" value="0.036698">
-        <br>
-        <label for="prijenosVT">Iznos prijenosa eur/kWh VT:</label>
-        <input type="number" name="prijenosVT" id="prijenosVT" min="0" max="1" step="0.000001" value="0.017254">
-        <br>
-        <label for="prijenosNT">Iznos prijenosa eur/kWh NT:</label>
-        <input type="number" name="prijenosNT" id="prijenosNT" min="0" max="1" step="0.000001" value="0.006636">
-        <br>
-        <label for="distVT">Iznos distribucije eur/kWh VT:</label>
-        <input type="number" name="distVT" id="distVT" min="0" max="1" step="0.000001" value="0.034508">
-        <br>
-        <label for="distNT">Iznos distribucije eur/kWh NT:</label>
-        <input type="number" name="distNT" id="distNT" min="0" max="1" step="0.000001" value="0.015927">
-        <br>
-        <label for="otkupVT">Iznos otkupa eur/kWh VT:</label>
-        <input type="number" name="otkupVT" id="otkupVT" min="0" max="1" step="0.000001" value="0.0598312">
-        <br>
-        <label for="otkupNT">Iznos otkupa eur/kWh NT:</label>
-        <input type="number" name="otkupNT" id="otkupNT" min="0" max="1" step="0.000001" value="0.0293584">
-        <br>
-        <label for="opskrba">Opskrbna naknada/mjesec:</label>
-        <input type="number" name="opskrba" id="opskrba" min="0" max="10" step="0.000001" value="0.9820">
-        <br>
-        <label for="oie">Naknada za obnovljive izvore eur/kWh:</label>
-        <input type="number" name="oie" id="oie" min="0" max="1" step="0.000001" value="0.014000">
-        <br>
-        <label for="mjernaUsluga">Naknada za mjernu uslugu/mj:</label>
-        <input type="number" name="mjernaUsluga" id="mjernaUsluga" min="0" max="10" step="0.01" value="1.54">
-        <br>
-        <label for="pdv">Iznos PDV-a(%):</label>
-        <input type="number" name="pdv" id="pdv" min="0" max="50" step="1" value="13">
-    </fieldset>
 
-    <h3>Izračun</h3>
-    <label for="elektranakw">Preporučena snaga elektrane:</label>
-    <input type="number" name="elektranakw" id="elektranakw" min="0" max="20" step="0.1" value="2.4">kWh
-    <br>
-    <label for="investicija">Procjenjeni iznos izgradnje elektrane:</label>
-    <input type="number" name="investicija" id="investicija" min="0" max="10000" step="1" value="3200">eur
-    <p>Potrebna površina krova: <span id="povrsinaKrova">12.8 m<sup>2</sup></span></p>
-    <p>Vrijeme povrata investicije: <span id="povratInvesticije">10.7</span> god</p>
-    <p>Ukupno potrošeno: VT: <span id="ukupnoPotrosenoVT">1200</span> kWh, NT: <span id="ukupnoPotrosenoNT">800</span>
-        kWh</p>
-    <p>Ukupno proizvedeno: <span id="ukupnoProizvedeno">1500</span> kWh (mora biti manje od potrošenih kWh u VT)</p>
-    <h4>pregled po mjesecima</h4>
-    <table id="tableCalc">
-        <thead>
-            <tr>
-                <th>mjesec</th>
-                <th>potrošeno VT</th>
-                <th>potrošeno NT</th>
-                <th>solar</th>
-                <th>kupljeno od HEPa</th>
-                <th>prodano HEPu</th>
-                <th>iznos računa</th>
-                <th>iznos računa prije solara</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>sjecanj</td>
-                <td>125</td>
-                <td>75</td>
-                <td>69</td>
-                <td>56</td>
-                <td>0</td>
-                <td>17.95</td>
-                <td>28.91</td>
-            </tr>
-            <tr>
-                <td>veljaca</td>
-                <td>128</td>
-                <td>115</td>
-                <td>74</td>
-                <td>54</td>
-                <td>0</td>
-                <td>20.95</td>
-                <td>32.71</td>
-            </tr>
-            <tr>
-                <td>ozujak</td>
-                <td>149</td>
-                <td>88</td>
-                <td>141</td>
-                <td>8</td>
-                <td>0</td>
-                <td>11.4</td>
-                <td>33.8</td>
-            </tr>
-            <tr>
-                <td>travanj</td>
-                <td>159</td>
-                <td>88</td>
-                <td>178</td>
-                <td>0</td>
-                <td>19</td>
-                <td>10.14</td>
-                <td>35.39</td>
-            </tr>
-            <tr>
-                <td>svibanj</td>
-                <td>138</td>
-                <td>75</td>
-                <td>192</td>
-                <td>0</td>
-                <td>54</td>
-                <td>9.05</td>
-                <td>30.97</td>
-            </tr>
-            <tr>
-                <td>lipanj</td>
-                <td>167</td>
-                <td>81</td>
-                <td>197</td>
-                <td>0</td>
-                <td>30</td>
-                <td>9.55</td>
-                <td>36.07</td>
-            </tr>
-            <tr>
-                <td>srpanj</td>
-                <td>186</td>
-                <td>54</td>
-                <td>213</td>
-                <td>0</td>
-                <td>27</td>
-                <td>7.32</td>
-                <td>36.87</td>
-            </tr>
-            <tr>
-                <td>kolovoz</td>
-                <td>174</td>
-                <td>62</td>
-                <td>200</td>
-                <td>0</td>
-                <td>26</td>
-                <td>7.98</td>
-                <td>35.62</td>
-            </tr>
-            <tr>
-                <td>rujan</td>
-                <td>118</td>
-                <td>51</td>
-                <td>158</td>
-                <td>0</td>
-                <td>40</td>
-                <td>7.08</td>
-                <td>25.82</td>
-            </tr>
-            <tr>
-                <td>listopad</td>
-                <td>156</td>
-                <td>97</td>
-                <td>130</td>
-                <td>26</td>
-                <td>0</td>
-                <td>10.88</td>
-                <td>35.66</td>
-            </tr>
-            <tr>
-                <td>studeni</td>
-                <td>130</td>
-                <td>104</td>
-                <td>87</td>
-                <td>43</td>
-                <td>0</td>
-                <td>11.46</td>
-                <td>32.11</td>
-            </tr>
-            <tr>
-                <td>prosinac</td>
-                <td>144</td>
-                <td>116</td>
-                <td>58</td>
-                <td>86</td>
-                <td>0</td>
-                <td>23.81</td>
-                <td>35.33</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td>UKUPNO:</td>
-                <td>1774</td>
-                <td>1006</td>
-                <td>1697</td>
-                <td>273</td>
-                <td>196</td>
-                <td>147.57</td>
-                <td>399.26</td>
-            </tr>
-        </tfoot>
-    </table>
+
+        <h3>Izračun</h3>
+        <label for="elektranakw">Preporučena snaga elektrane:</label>
+        <input type="number" name="elektranakw" id="elektranakw" min="0" max="20" step="0.1" value="2.4">kWh
+        <br>
+        <label for="investicija">Procjenjeni iznos izgradnje elektrane:</label>
+        <input type="number" name="investicija" id="investicija" min="0" max="10000" step="1" value="3200">eur
+        <p>Potrebna površina krova: <span id="povrsinaKrova">12.8 m<sup>2</sup></span></p>
+        <p>Vrijeme povrata investicije: <span id="povratInvesticije">10.7</span> god</p>
+        <p>Ukupno potrošeno: VT: <span id="ukupnoPotrosenoVT">1200</span> kWh, NT: <span
+                id="ukupnoPotrosenoNT">800</span>
+            kWh</p>
+        <p>Ukupno proizvedeno: <span id="ukupnoProizvedeno">1500</span> kWh (mora biti manje od potrošenih kWh u VT)</p>
+        <br>
+        <div class="tableContainer">
+            <table id="tableCalc">
+                <thead>
+                    <tr>
+                        <th>mjesec</th>
+                        <th>potrošeno VT</th>
+                        <th>potrošeno NT</th>
+                        <th>solar</th>
+                        <th>kupljeno od HEPa</th>
+                        <th>prodano HEPu</th>
+                        <th>iznos računa</th>
+                        <th>iznos računa prije solara</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>sjecanj</td>
+                        <td>125</td>
+                        <td>75</td>
+                        <td>69</td>
+                        <td>56</td>
+                        <td>0</td>
+                        <td>17.95</td>
+                        <td>28.91</td>
+                    </tr>
+                    <tr>
+                        <td>veljaca</td>
+                        <td>128</td>
+                        <td>115</td>
+                        <td>74</td>
+                        <td>54</td>
+                        <td>0</td>
+                        <td>20.95</td>
+                        <td>32.71</td>
+                    </tr>
+                    <tr>
+                        <td>ozujak</td>
+                        <td>149</td>
+                        <td>88</td>
+                        <td>141</td>
+                        <td>8</td>
+                        <td>0</td>
+                        <td>11.4</td>
+                        <td>33.8</td>
+                    </tr>
+                    <tr>
+                        <td>travanj</td>
+                        <td>159</td>
+                        <td>88</td>
+                        <td>178</td>
+                        <td>0</td>
+                        <td>19</td>
+                        <td>10.14</td>
+                        <td>35.39</td>
+                    </tr>
+                    <tr>
+                        <td>svibanj</td>
+                        <td>138</td>
+                        <td>75</td>
+                        <td>192</td>
+                        <td>0</td>
+                        <td>54</td>
+                        <td>9.05</td>
+                        <td>30.97</td>
+                    </tr>
+                    <tr>
+                        <td>lipanj</td>
+                        <td>167</td>
+                        <td>81</td>
+                        <td>197</td>
+                        <td>0</td>
+                        <td>30</td>
+                        <td>9.55</td>
+                        <td>36.07</td>
+                    </tr>
+                    <tr>
+                        <td>srpanj</td>
+                        <td>186</td>
+                        <td>54</td>
+                        <td>213</td>
+                        <td>0</td>
+                        <td>27</td>
+                        <td>7.32</td>
+                        <td>36.87</td>
+                    </tr>
+                    <tr>
+                        <td>kolovoz</td>
+                        <td>174</td>
+                        <td>62</td>
+                        <td>200</td>
+                        <td>0</td>
+                        <td>26</td>
+                        <td>7.98</td>
+                        <td>35.62</td>
+                    </tr>
+                    <tr>
+                        <td>rujan</td>
+                        <td>118</td>
+                        <td>51</td>
+                        <td>158</td>
+                        <td>0</td>
+                        <td>40</td>
+                        <td>7.08</td>
+                        <td>25.82</td>
+                    </tr>
+                    <tr>
+                        <td>listopad</td>
+                        <td>156</td>
+                        <td>97</td>
+                        <td>130</td>
+                        <td>26</td>
+                        <td>0</td>
+                        <td>10.88</td>
+                        <td>35.66</td>
+                    </tr>
+                    <tr>
+                        <td>studeni</td>
+                        <td>130</td>
+                        <td>104</td>
+                        <td>87</td>
+                        <td>43</td>
+                        <td>0</td>
+                        <td>11.46</td>
+                        <td>32.11</td>
+                    </tr>
+                    <tr>
+                        <td>prosinac</td>
+                        <td>144</td>
+                        <td>116</td>
+                        <td>58</td>
+                        <td>86</td>
+                        <td>0</td>
+                        <td>23.81</td>
+                        <td>35.33</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>UKUPNO:</td>
+                        <td>1774</td>
+                        <td>1006</td>
+                        <td>1697</td>
+                        <td>273</td>
+                        <td>196</td>
+                        <td>147.57</td>
+                        <td>399.26</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <fieldset id="naknade">
+            <legend>HEP cijene i naknade:</legend>
+            <div>
+                <div>
+                    <label for="cijenaVT">Cijena energije eur/kWh VT:</label>
+                    <input type="number" name="cijenaVT" id="cijenaVT" min="0" max="1" step="0.000001" value="0.074789">
+                </div>
+                <div>
+                    <label for="cijenaNT">Cijena energije eur/kWh NT:</label>
+                    <input type="number" name="cijenaNT" id="cijenaNT" min="0" max="1" step="0.000001" value="0.036698">
+                </div>
+                <div>
+                    <label for="prijenosVT">Iznos prijenosa eur/kWh VT:</label>
+                    <input type="number" name="prijenosVT" id="prijenosVT" min="0" max="1" step="0.000001"
+                        value="0.017254">
+                </div>
+                <div>
+                    <label for="prijenosNT">Iznos prijenosa eur/kWh NT:</label>
+                    <input type="number" name="prijenosNT" id="prijenosNT" min="0" max="1" step="0.000001"
+                        value="0.006636">
+                </div>
+                <div>
+                    <label for="distVT">Iznos distribucije eur/kWh VT:</label>
+                    <input type="number" name="distVT" id="distVT" min="0" max="1" step="0.000001" value="0.034508">
+                </div>
+                <div>
+                    <label for="distNT">Iznos distribucije eur/kWh NT:</label>
+                    <input type="number" name="distNT" id="distNT" min="0" max="1" step="0.000001" value="0.015927">
+                </div>
+                <div>
+                    <label for="otkupVT">Iznos otkupa eur/kWh VT:</label>
+                    <input type="number" name="otkupVT" id="otkupVT" min="0" max="1" step="0.000001" value="0.0598312">
+                </div>
+                <div>
+                    <label for="otkupNT">Iznos otkupa eur/kWh NT:</label>
+                    <input type="number" name="otkupNT" id="otkupNT" min="0" max="1" step="0.000001" value="0.0293584">
+                </div>
+                <div>
+                    <label for="opskrba">Opskrbna naknada/mjesec:</label>
+                    <input type="number" name="opskrba" id="opskrba" min="0" max="10" step="0.00001" value="0.9820">
+                </div>
+                <div>
+                    <label for="oie">Naknada za OI eur/kWh:</label>
+                    <input type="number" name="oie" id="oie" min="0" max="1" step="0.000001" value="0.014000">
+                </div>
+                <div>
+                    <label for="mjernaUsluga">Naknada za mjernu uslugu:</label>
+                    <input type="number" name="mjernaUsluga" id="mjernaUsluga" min="0" max="10" step="0.01"
+                        value="1.54">
+                </div>
+                <div>
+                    <label for="pdv">Iznos PDV-a(%):</label>
+                    <input type="number" name="pdv" id="pdv" min="0" max="50" step="1" value="13">
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
 
 
 </body>
