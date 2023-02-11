@@ -22,7 +22,7 @@
             <div class="title">
                 <h3>Solarni kalkulator</h3>
                 <h5>Izračun dimenzioniranja i isplativosti solarne elektrane u programu "HEP samoopskrba".</h5>
-                <h6>ver.0.1.223</h6>
+                <h6>ver.0.1.23</h6>
                 <br>
             </div>
         </div>
@@ -82,120 +82,141 @@
             <!-- <input type="number" name="nagib" id="nagib" step="5" min="10" max="60" value="30">° -->
         </fieldset>
 
-        <fieldset id="upis">
-            <legend>Upis potrošnje (kWh): </legend>
-            <hr>
-            <div>
-                <label for="sjecanj-VT">Sječanj</label>
+        <form action="">
+            <fieldset id="upis">
+                <legend>Upis potrošnje (kWh): </legend>
                 <div>
-                    <span>VT: <input type="number" name="sjecanj-VT" id="sjecanj-VT" min="1" max="500"
-                            value="125">kWh</span>
-                    <span>NT: <input type="number" name="sjecanj-NT" id="sjecanj-NT" min="1" max="500"
-                            value="75">kWh</span>
+                    <label for="god-VT">God. potrošnja</label>
+                    <div>
+                        <span>VT: <input type="number" name="god-VT" id="god-VT" min="1" max="10000"
+                                value="1800">kWh</span>
+                        <span>NT: <input type="number" name="god-NT" id="god-NT" min="1" max="10000"
+                                value="1200">kWh</span>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div>
-                <label for="veljaca-VT">Veljača</label>
                 <div>
-                    <span> VT: <input type="number" name="veljaca-VT" id="veljaca-VT" min="1" max="500"
-                            value="128">kWh</span>
-                    <span> NT: <input type="number" name="veljaca-NT" id="veljaca-NT" min="1" max="500"
-                            value="115">kWh</span>
+                    <input type="checkbox" name="mjesecna" id="mjesecna">
+                    <label for="mjesecna">Unesi potrošnju pojedinačno po mjesecima</label>
                 </div>
-            </div>
-            <hr>
-            <div> <label for="ozujak-VT">Ožujak</label>
-                <div>
-                    <span> VT: <input type="number" name="ozujak-VT" id="ozujak-VT" min="1" max="500"
-                            value="149">kWh</span>
-                    <span> NT: <input type="number" name="ozujak-NT" id="ozujak-NT" min="1" max="500"
-                            value="88">kWh</span>
+
+                <hr>
+                <div id="flex">
+                    <div>
+                        <label for="sjecanj-VT">Sječanj</label>
+                        <div>
+                            <span>VT: <input type="number" name="sjecanj-VT" id="sjecanj-VT" min="1" max="500"
+                                    value="125">kWh</span>
+                            <span>NT: <input type="number" name="sjecanj-NT" id="sjecanj-NT" min="1" max="500"
+                                    value="75">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <label for="veljaca-VT">Veljača</label>
+                        <div>
+                            <span> VT: <input type="number" name="veljaca-VT" id="veljaca-VT" min="1" max="500"
+                                    value="128">kWh</span>
+                            <span> NT: <input type="number" name="veljaca-NT" id="veljaca-NT" min="1" max="500"
+                                    value="115">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div> <label for="ozujak-VT">Ožujak</label>
+                        <div>
+                            <span> VT: <input type="number" name="ozujak-VT" id="ozujak-VT" min="1" max="500"
+                                    value="149">kWh</span>
+                            <span> NT: <input type="number" name="ozujak-NT" id="ozujak-NT" min="1" max="500"
+                                    value="88">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div> <label for="travanj-VT">Travanj</label>
+                        <div>
+                            <span> VT: <input type="number" name="travanj-VT" id="travanj-VT" min="1" max="500"
+                                    value="159">kWh</span>
+                            <span> NT: <input type="number" name="travanj-NT" id="travanj-NT" min="1" max="500"
+                                    value="88">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div> <label for="svibanj-VT">Svibanj</label>
+                        <div>
+                            <span> VT: <input type="number" name="svibanj-VT" id="svibanj-VT" min="1" max="500"
+                                    value="138">kWh</span>
+                            <span> NT: <input type="number" name="svibanj-NT" id="svibanj-NT" min="1" max="500"
+                                    value="75">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div> <label for="lipanj-VT">Lipanj</label>
+                        <div>
+                            <span> VT: <input type="number" name="lipanj-VT" id="lipanj-VT" min="1" max="500"
+                                    value="167">kWh</span>
+                            <span> NT: <input type="number" name="lipanj-NT" id="lipanj-NT" min="1" max="500"
+                                    value="81">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div> <label for="srpanj-VT">Srpanj</label>
+                        <div>
+                            <span> VT: <input type="number" name="srpanj-VT" id="srpanj-VT" min="1" max="500"
+                                    value="186">kWh</span>
+                            <span> NT: <input type="number" name="srpanj-NT" id="srpanj-NT" min="1" max="500"
+                                    value="54">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div> <label for="kolovoz-VT">Kolovoz</label>
+                        <div>
+                            <span> VT: <input type="number" name="kolovoz-VT" id="kolovoz-VT" min="1" max="500"
+                                    value="174">kWh</span>
+                            <span> NT: <input type="number" name="kolovoz-NT" id="kolovoz-NT" min="1" max="500"
+                                    value="62">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div> <label for="rujan-VT">Rujan</label>
+                        <div>
+                            <span> VT: <input type="number" name="rujan-VT" id="rujan-VT" min="1" max="500"
+                                    value="118">kWh</span>
+                            <span> NT: <input type="number" name="rujan-NT" id="rujan-NT" min="1" max="500"
+                                    value="51">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div> <label for="listopad-VT">Listopad</label>
+                        <div>
+                            <span> VT: <input type="number" name="listopad-VT" id="listopad-VT" min="1" max="500"
+                                    value="156">kWh</span>
+                            <span> NT: <input type="number" name="listopad-NT" id="listopad-NT" min="1" max="500"
+                                    value="97">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div> <label for="studeni-VT">Studeni</label>
+                        <div>
+                            <span> VT: <input type="number" name="studeni-VT" id="studeni-VT" min="1" max="500"
+                                    value="130">kWh</span>
+                            <span> NT: <input type="number" name="studeni-NT" id="studeni-NT" min="1" max="500"
+                                    value="104">kWh</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div> <label for="prosinac-VT">Prosinac</label>
+                        <div>
+                            <span> VT: <input type="number" name="prosinac-VT" id="prosinac-VT" min="1" max="500"
+                                    value="144" required>kWh</span>
+                            <span> NT: <input type="number" name="prosinac-NT" id="prosinac-NT" min="1" max="500"
+                                    value="116" required>kWh</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div> <label for="travanj-VT">Travanj</label>
-                <div>
-                    <span> VT: <input type="number" name="travanj-VT" id="travanj-VT" min="1" max="500"
-                            value="159">kWh</span>
-                    <span> NT: <input type="number" name="travanj-NT" id="travanj-NT" min="1" max="500"
-                            value="88">kWh</span>
-                </div>
-            </div>
-            <hr>
-            <div> <label for="svibanj-VT">Svibanj</label>
-                <div>
-                    <span> VT: <input type="number" name="svibanj-VT" id="svibanj-VT" min="1" max="500"
-                            value="138">kWh</span>
-                    <span> NT: <input type="number" name="svibanj-NT" id="svibanj-NT" min="1" max="500"
-                            value="75">kWh</span>
-                </div>
-            </div>
-            <hr>
-            <div> <label for="lipanj-VT">Lipanj</label>
-                <div>
-                    <span> VT: <input type="number" name="lipanj-VT" id="lipanj-VT" min="1" max="500"
-                            value="167">kWh</span>
-                    <span> NT: <input type="number" name="lipanj-NT" id="lipanj-NT" min="1" max="500"
-                            value="81">kWh</span>
-                </div>
-            </div>
-            <hr>
-            <div> <label for="srpanj-VT">Srpanj</label>
-                <div>
-                    <span> VT: <input type="number" name="srpanj-VT" id="srpanj-VT" min="1" max="500"
-                            value="186">kWh</span>
-                    <span> NT: <input type="number" name="srpanj-NT" id="srpanj-NT" min="1" max="500"
-                            value="54">kWh</span>
-                </div>
-            </div>
-            <hr>
-            <div> <label for="kolovoz-VT">Kolovoz</label>
-                <div>
-                    <span> VT: <input type="number" name="kolovoz-VT" id="kolovoz-VT" min="1" max="500"
-                            value="174">kWh</span>
-                    <span> NT: <input type="number" name="kolovoz-NT" id="kolovoz-NT" min="1" max="500"
-                            value="62">kWh</span>
-                </div>
-            </div>
-            <hr>
-            <div> <label for="rujan-VT">Rujan</label>
-                <div>
-                    <span> VT: <input type="number" name="rujan-VT" id="rujan-VT" min="1" max="500"
-                            value="118">kWh</span>
-                    <span> NT: <input type="number" name="rujan-NT" id="rujan-NT" min="1" max="500"
-                            value="51">kWh</span>
-                </div>
-            </div>
-            <hr>
-            <div> <label for="listopad-VT">Listopad</label>
-                <div>
-                    <span> VT: <input type="number" name="listopad-VT" id="listopad-VT" min="1" max="500"
-                            value="156">kWh</span>
-                    <span> NT: <input type="number" name="listopad-NT" id="listopad-NT" min="1" max="500"
-                            value="97">kWh</span>
-                </div>
-            </div>
-            <hr>
-            <div> <label for="studeni-VT">Studeni</label>
-                <div>
-                    <span> VT: <input type="number" name="studeni-VT" id="studeni-VT" min="1" max="500"
-                            value="130">kWh</span>
-                    <span> NT: <input type="number" name="studeni-NT" id="studeni-NT" min="1" max="500"
-                            value="104">kWh</span>
-                </div>
-            </div>
-            <hr>
-            <div> <label for="prosinac-VT">Prosinac</label>
-                <div>
-                    <span> VT: <input type="number" name="prosinac-VT" id="prosinac-VT" min="1" max="500"
-                            value="144">kWh</span>
-                    <span> NT: <input type="number" name="prosinac-NT" id="prosinac-NT" min="1" max="500"
-                            value="116">kWh</span>
-                </div>
-            </div>
-        </fieldset>
-        <button id="fetch">IZRAČUNAJ</button>
+            </fieldset>
+            <!-- napravi button od ovog -->
+            <input id="fetch" type="submit" value="IZRAČUNAJ" />
+        </form>
+
+        <!-- <button id="fetch">IZRAČUNAJ</button> -->
         <div id="izracun">
             <!-- <div>
                 <label for="elektranakw">Preporučena snaga elektrane:</label>
@@ -434,9 +455,14 @@
             <li>Sve ovdje je izrađeno za moje osobne potrebe.</li>
         </ul>
     </div>
-<footer>
-    <p class="small"><a href="turpija(gmail.com)">turpija</a> made this in 2023</p>
-</footer>
+    <footer>
+        <p class="small"><a href="turpija(gmail.com)">turpija</a> made this in 2023</p>
+    </footer>
+    <div id="waitScreen">
+        <div id="loader">
+            <h3>loading...</h3>
+        </div>
+    </div>
 
 </body>
 

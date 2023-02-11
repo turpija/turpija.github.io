@@ -26,6 +26,7 @@ let pdv;
 
 const allInputs = document.querySelectorAll("input");
 const allDropDowns = document.querySelectorAll("select");
+const waitScreen = document.querySelector("#waitScreen");
 
 let table = document.querySelector("#tableCalc");
 let elektranakw = document.querySelector("#elektranakw");
@@ -37,7 +38,7 @@ let ukupnoPotrosenoNT = document.querySelector("#ukupnoPotrosenoNT");
 let ukupnoProizvedeno = document.querySelector("#ukupnoProizvedeno");
 
 
-const cleanStart = () => {
+function cleanStart() {
     let upisInputi = document.querySelectorAll("#upis input");
     table.innerHTML = "";
     upisInputi.forEach((e) => {
@@ -54,13 +55,13 @@ const cleanStart = () => {
 
 }
 
-const checkInputData = () => {
+function checkInputData() {
     let nedostaje = "";
     let upisInputi = document.querySelectorAll("#upis input");
     upisInputi.forEach((e) => provjeri(e));
 
     function provjeri(e) {
-        console.log("e.value",e.value);
+        // console.log("e.value",e.value);
         if (e.value == "") {
             // console.log("nedostaje",e.id);
             nedostaje += `${e.id} `;
@@ -71,9 +72,10 @@ const checkInputData = () => {
         console.log("sve ok, nastavi");
         fetchBtn.style.display = "none";
         enableDynamicRecalculate();
+        izracunavaj();
     } else if (nedostaje != "") {
         console.log("nesto nedostaje");
-        alert(`UPIŠI: ${nedostaje}`);
+        // alert(`UPIŠI: ${nedostaje}`);
     }
 
 }
@@ -394,25 +396,38 @@ const createTable = (obj) => {
 
 }
 
+function waitForFetchData() {
+    console.log("waitScreen on")
+    waitScreen.style.display = "block";
+    // waitScreen.classList.add(".waitScreen");
+}
+
+function fetchingComplete() {
+    console.log("waitScreen off")
+    waitScreen.style.display = "none";
+    // waitScreen.classList.remove(".waitScreen");
+}
+
 
 const izracunavaj = async () => {
-    checkInputData(); // jesu li svi inputi ok?
-    // wait till fetch function - disable window
+    waitForFetchData();
+    // checkInputData(); // jesu li svi inputi ok?
     setInputs(); //složi inpute u varijable 
     const solarData = await fetchData(); // dohvati podatke o solarima
     solar = populateSolarArray(solarData); // posloži array s podacima od pvgis
     const calculationObj = createCalculationObject(); // izrada objekta s svim izračunima za mjesece
+    console.log("data aquired");
     izracunInvesticije(calculationObj); // izračun iznosa investicije i povrat
     createTable(calculationObj); // napravi i popuni tablicu
-    // fetch done function - enable window
+    fetchingComplete(); // fetch done function - enable window
+    waitScreen.style.display = "none";
     console.log(calculationObj);
-
-
 }
 
 const recalculate = () => {
     console.log("preračunavam...");
-    izracunavaj();
+    checkInputData();
+    // izracunavaj();
 }
 
 // izracunavaj();
@@ -426,5 +441,11 @@ allInputs.forEach((e) => {
 
 
 const fetchBtn = document.querySelector("#fetch");
-fetchBtn.addEventListener("click", izracunavaj);
-cleanStart();
+fetchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    checkInputData()
+});
+// cleanStart();
+// waitForFetchData();
+
+

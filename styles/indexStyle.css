@@ -119,6 +119,10 @@ hr {
     margin-right: -11px;
 }
 
+pre {
+    display: inline-block;
+}
+
 
 
 /* ---- NAVBAR ---- */
