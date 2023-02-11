@@ -85,22 +85,22 @@
         <form action="">
             <fieldset id="upis">
                 <legend>Upis potrošnje (kWh): </legend>
-                <div>
-                    <label for="god-VT">God. potrošnja</label>
+                <div class="godisnjiUnos">
+                    <label for="godVT">God. potrošnja</label>
                     <div>
-                        <span>VT: <input type="number" name="god-VT" id="god-VT" min="1" max="10000"
-                                value="1800">kWh</span>
-                        <span>NT: <input type="number" name="god-NT" id="god-NT" min="1" max="10000"
+                        <span>VT: <input type="number" name="godVT" id="godVT" min="1" max="10000"
+                                value="1800" disabled>kWh</span>
+                        <span>NT: <input type="number" name="godNT" id="godNT" min="1" max="10000"
                                 value="1200">kWh</span>
                     </div>
                 </div>
                 <div>
-                    <input type="checkbox" name="mjesecna" id="mjesecna">
-                    <label for="mjesecna">Unesi potrošnju pojedinačno po mjesecima</label>
+                    <input type="checkbox" name="chkMjesecniUnos" id="chkMjesecniUnos">
+                    <label for="chkMjesecniUnos">Unesi potrošnju pojedinačno po mjesecima</label>
                 </div>
 
                 <hr>
-                <div id="flex">
+                <div id="flex" class="mjesecniUnos">
                     <div>
                         <label for="sjecanj-VT">Sječanj</label>
                         <div>

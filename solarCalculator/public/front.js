@@ -27,6 +27,8 @@ let pdv;
 const allInputs = document.querySelectorAll("input");
 const allDropDowns = document.querySelectorAll("select");
 const waitScreen = document.querySelector("#waitScreen");
+const chkMjesecniUnos = document.querySelector("#chkMjesecniUnos");
+const godInputi = document.querySelectorAll(".godisnjiUnos input");
 
 let table = document.querySelector("#tableCalc");
 let elektranakw = document.querySelector("#elektranakw");
@@ -58,7 +60,7 @@ function cleanStart() {
 function checkInputData() {
     let nedostaje = "";
     let upisInputi = document.querySelectorAll("#upis input");
-    upisInputi.forEach((e) => provjeri(e));
+    upisInputi.forEach(e => provjeri(e));
 
     function provjeri(e) {
         // console.log("e.value",e.value);
@@ -77,11 +79,59 @@ function checkInputData() {
         console.log("nesto nedostaje");
         // alert(`UPIŠI: ${nedostaje}`);
     }
+}
 
+
+function upisPotrosnjeMjeseci() {
+    let mjInputi = document.querySelectorAll(".mjesecniUnos input");
+
+    // if not checked -> godišnji upis
+    if (!chkMjesecniUnos.checked) {
+        // disable mjesecne inpute
+        mjInputi.forEach((inp, bool) => disable(inp, true));
+        // enable godišnji input
+        godInputi.forEach((inp, bool) => disable(inp, false));
+        // preračunaj godišnji input / 12
+
+    } else {
+        // disable godišnji input
+        godInputi.forEach((inp, bool) => disable(inp, true));
+        // enable mjesecne inpute
+        mjInputi.forEach((inp, bool) => disable(inp, false));
+
+    }
+
+    function disable(el, val) {
+        el.disabled = val;
+    }
+}
+
+function typingGodInput() {
+    godInputi.forEach(e => e.addEventListener("input", fillMjInputs))
+
+    function fillMjInputs(e) {
+
+        if (e.target.id == "godVT") {
+            console.log("VT", e.target.value / 12);
+            allInputs.forEach(inp => {
+                if (inp.id.includes("-VT")) {
+                    console.log(inp.id);
+                    inp.value = Math.round(e.target.value / 12);
+                }
+            })
+        } else if (e.target.id == "godNT") {
+            // console.log("NT",e.target.value/12);
+            allInputs.forEach(inp => {
+                if (inp.id.includes("-NT")) {
+                    inp.value = Math.round(e.target.value / 12);
+                }
+            })
+        }
+    }
 }
 
 // add event listener na sve inpute, change => recalculate
-const enableDynamicRecalculate = () => {
+function enableDynamicRecalculate() {
     allInputs.forEach((e) => {
         e.addEventListener("change", recalculate)
     });
@@ -424,7 +474,7 @@ const izracunavaj = async () => {
     console.log(calculationObj);
 }
 
-const recalculate = () => {
+function recalculate() {
     console.log("preračunavam...");
     checkInputData();
     // izracunavaj();
@@ -432,13 +482,16 @@ const recalculate = () => {
 
 // izracunavaj();
 
-// add event listener na sve inpute, click => select content
+// event listener na sve inpute, click => select content
 allInputs.forEach((e) => {
     e.addEventListener("click", () => {
         e.select();
     })
 });
 
+// event listener na checkbox - mjeseniUnos
+chkMjesecniUnos.addEventListener("change", upisPotrosnjeMjeseci);
+upisPotrosnjeMjeseci();
 
 const fetchBtn = document.querySelector("#fetch");
 fetchBtn.addEventListener("click", (e) => {
@@ -447,5 +500,4 @@ fetchBtn.addEventListener("click", (e) => {
 });
 // cleanStart();
 // waitForFetchData();
-
-
+typingGodInput();

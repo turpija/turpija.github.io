@@ -242,6 +242,10 @@ input[type='checkbox'] {
     margin-right: 5px;
 }
 
+input:disabled {
+    opacity: 0.6;
+}
+
 
 fieldset label {
     margin: auto 0;
