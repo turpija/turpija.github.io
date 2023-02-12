@@ -26,7 +26,7 @@ let pdv;
 
 const allInputs = document.querySelectorAll("input");
 const allDropDowns = document.querySelectorAll("select");
-const waitScreen = document.querySelector("#waitScreen");
+const waitScreen = document.querySelector(".waitScreen");
 const chkMjesecniUnos = document.querySelector("#chkMjesecniUnos");
 const godInputi = document.querySelectorAll(".godisnjiUnos input");
 
@@ -35,6 +35,7 @@ let elektranakw = document.querySelector("#elektranakw");
 let investicija = document.querySelector("#investicija");
 let povrsinaKrova = document.querySelector("#povrsinaKrova");
 let povratInvesticije = document.querySelector("#povratInvesticije");
+let ukupnoPotroseno = document.querySelector("#ukupnoPotroseno");
 let ukupnoPotrosenoVT = document.querySelector("#ukupnoPotrosenoVT");
 let ukupnoPotrosenoNT = document.querySelector("#ukupnoPotrosenoNT");
 let ukupnoProizvedeno = document.querySelector("#ukupnoProizvedeno");
@@ -286,12 +287,13 @@ const populateSolarArray = (data) => {
     const ukupnaGodProizvodnja = data.outputs.totals.fixed.E_y;
     const ukupnaGodPotrosnjaVT = potrosnjaVT.reduce((sum, curr) => sum + curr);
     const ukupnaGodPotrosnjaNT = potrosnjaNT.reduce((sum, curr) => sum + curr);
-    const ocekivanjaProizvodnja = ukupnaGodPotrosnjaVT * 0.95;
+    const ocekivanjaProizvodnja = (ukupnaGodPotrosnjaVT + ukupnaGodPotrosnjaNT) * 0.95;
     const velicinaElektrane = Math.round((ocekivanjaProizvodnja / ukupnaGodProizvodnja) * 10) / 10;
 
     elektranakw.innerHTML = velicinaElektrane;
     ukupnoPotrosenoVT.innerHTML = Math.round(ukupnaGodPotrosnjaVT);
     ukupnoPotrosenoNT.innerHTML = Math.round(ukupnaGodPotrosnjaNT);
+    ukupnoPotroseno.innerHTML = Math.round(ukupnaGodPotrosnjaNT + ukupnaGodPotrosnjaVT)
     ukupnoProizvedeno.innerHTML = Math.round(ocekivanjaProizvodnja);
 
     return arrData.map(month => parseInt(month.E_m * velicinaElektrane));
@@ -395,7 +397,7 @@ const createTable = (obj) => {
     table.innerHTML = "";
 
     let data = [obj.monthNames, obj.potrosnjaVT, obj.potrosnjaNT, obj.solar, obj.kupljenoHep, obj.prodanoHep, obj.iznosRacuna, obj.iznosRacunaBezSolara];
-    let columnNames = ["mjesec", "potrošeno VT", "potrošeno NT", "solar", "kupljeno od HEPa", "prodano HEPu", "iznos računa", "iznos računa prije solara"];
+    let columnNames = ["Mjesec", "Potrošeno VT (kWh)", "Potrošeno NT (kWh)", "Proizvedno solar (kWh)", "Kupljeno od HEPa (kWh)", "Prodano HEPu (kWh)", "Iznos računa (eur)", "...prije solara (eur)"];
     let footerArr = [
         "UKUPNO:",
         obj.potrosnjaVT.reduce((sum, curr) => sum + curr),
@@ -448,14 +450,16 @@ const createTable = (obj) => {
 
 function waitForFetchData() {
     console.log("waitScreen on")
-    waitScreen.style.display = "block";
-    // waitScreen.classList.add(".waitScreen");
+    // waitScreen.style.display = "block";
+    // waitScreen.style.visibility = "visible";
+    waitScreen.classList.remove("hide");
 }
 
 function fetchingComplete() {
     console.log("waitScreen off")
-    waitScreen.style.display = "none";
-    // waitScreen.classList.remove(".waitScreen");
+    // waitScreen.style.display = "none";
+    // waitScreen.style.visibility = "hidden";
+    waitScreen.classList.add("hide");
 }
 
 
@@ -470,7 +474,6 @@ const izracunavaj = async () => {
     izracunInvesticije(calculationObj); // izračun iznosa investicije i povrat
     createTable(calculationObj); // napravi i popuni tablicu
     fetchingComplete(); // fetch done function - enable window
-    waitScreen.style.display = "none";
     console.log(calculationObj);
 }
 

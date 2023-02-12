@@ -1,12 +1,11 @@
 :root {
     --cTableBg: hsl(0, 0%, 98%);
-    --cPrimary: #3c4064;
+    --cPrimary: #5d82a8;
+    --cPrimary: #757d9e;
     --cTextLight: hsl(0, 0%, 95%);
     --cTableBorder: 0.5px solid hsl(0, 0%, 85%);
     --cTextDark: hsl(0, 0%, 20%);
     --shadow: 0 0 10px hsl(0, 0%, 85%);
-
-
 }
 
 * {
@@ -29,16 +28,33 @@ body {
 
 .container {
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 650px;
     padding: 20px;
 }
 
-.logo {
+#logo {
+    position: relative;
     width: 100px;
     height: 100px;
-    margin-right: 10px;
     flex-shrink: 0;
-    background: linear-gradient(105deg, #ff0000 0%, #ff0000 40%, #ffffff 50%, #2e39a3 60%, #2e39a3 100%);
+    margin-right: 10px;
+}
+
+.logoL {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    clip-path: polygon(0 60%, 100% 40%, 100% 0, 0 0);
+    background: linear-gradient(110deg, #da0000 0%, #da0000 38%, #ffffff 45%, #2a338b 52%, #2a338b 100%);
+    opacity: 0.25;
+}
+
+.logoR {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    clip-path: polygon(0 60%, 100% 40%, 100% 100%, 0 100%);
+    background: linear-gradient(110deg, #da0000 0%, #da0000 48%, #ffffff 55%, #2a338b 62%, #2a338b 100%);
     opacity: 0.25;
 }
 
@@ -135,9 +151,7 @@ tr {
 thead {
     font-size: 13rem;
     background-color: var(--cPrimary);
-    /* border-bottom: var(--cTableBorder); */
     color: var(--cTextLight);
-
 }
 
 th {
@@ -157,13 +171,11 @@ th:first-of-type {
 tfoot {
     background-color: var(--cPrimary);
     color: var(--cTextLight);
-    /* border-top: var(--cTableBorder); */
 }
 
 tfoot td {
     padding: 10px 10px;
     text-align: right;
-    /* font-weight: 700; */
 }
 
 td {
@@ -220,8 +232,10 @@ tfoot td:first-child {
 
 }
 
-
-
+select,
+input {
+    background-color: white;
+}
 
 input[type="number"] {
     border: var(--cTableBorder);
@@ -237,8 +251,6 @@ input::-webkit-inner-spin-button {
 }
 
 input[type='checkbox'] {
-    /* align-self: flex-start; */
-    margin-left: 50px;
     margin-right: 5px;
 }
 
@@ -268,6 +280,10 @@ fieldset input[type="number"] {
     width: 60px;
     text-align: right;
     align-self: flex-end;
+}
+
+#naknade {
+    font-size: 14rem;
 }
 
 fieldset#naknade input {
@@ -300,10 +316,17 @@ fieldset#objekt select {
     width: 110px;
 }
 
+.godisnjiUnos>div>div,
+.mjesecniUnos>div>div {
+    display: flex;
+    flex-direction: column;
+}
+
 fieldset#upis>div>div,
 fieldset#naknade>div>div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 
@@ -322,8 +345,8 @@ fieldset span {
     font-size: 13px;
 }
 
-#waitScreen {
-    display: none;
+.waitScreen {
+    display: block;
     position: fixed;
     z-index: 20;
     top: 0;
@@ -331,9 +354,13 @@ fieldset span {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
+    animation: fadein .25s ease;
+
 }
 
-.waitScreen {}
+.hide {
+    display: none;
+}
 
 #loader {
     position: absolute;
@@ -366,6 +393,16 @@ fieldset span {
     }
 }
 
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 
 
 @media only screen and (min-width: 450px) {
@@ -374,9 +411,9 @@ fieldset span {
         flex-direction: row;
     }
 
-    fieldset#naknade>div>div {
+    .godisnjiUnos>div>div,
+    .mjesecniUnos>div>div {
         flex-direction: row;
-        justify-content: space-between;
     }
 
     hr {
