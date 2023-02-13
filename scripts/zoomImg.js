@@ -22,12 +22,8 @@ function createDuplicateImg(origImg) {
     return img;
 }
 
-<<<<<<< HEAD
 function resizeToFullScreen(newImg,linkStr) {
     console.dir("passed through url:",linkStr);
-=======
-function resizeToFullScreen(newImg) {
->>>>>>> a225deb3a68c096380871af8798972983ba5c54a
     const prop = newImg.style.width;
     newImg.style.left = "0px";
     newImg.style.top = `${window.pageYOffset}px`;
@@ -36,12 +32,9 @@ function resizeToFullScreen(newImg) {
     function afterImageScale(e) {
         newImg.removeEventListener("transitionend", afterImageScale);
         console.log("after img resize ... do some tricks")
-<<<<<<< HEAD
         window.setTimeout(() => {
             newImg.style.display = "none";
         }, 500);
-=======
->>>>>>> a225deb3a68c096380871af8798972983ba5c54a
     };
 
     newImg.addEventListener("transitionend", afterImageScale);
@@ -50,15 +43,10 @@ function resizeToFullScreen(newImg) {
 
 function clickedImage(e) {
     e.preventDefault();
-<<<<<<< HEAD
     let origImg = e.target;
     let urlStr = origImg.dataset.url;
     console.log(urlStr);
     
-=======
-    origImg = e.target;
-
->>>>>>> a225deb3a68c096380871af8798972983ba5c54a
     function origImgWidth() {
         const origImgWidthFull = parseInt(getComputedStyle(origImg).width);
         const origImgPaddingLeft = parseInt(getComputedStyle(origImg).paddingLeft)
@@ -66,7 +54,6 @@ function clickedImage(e) {
         
         return origImgWidthFull - origImgPaddingLeft - origImgPaddingRight;
     }
-<<<<<<< HEAD
     
     // console.log(origImgWidth());
     newImg = createDuplicateImg(e.target);
@@ -75,17 +62,6 @@ function clickedImage(e) {
     newImg.url = origImg.dataset.url;
     window.setTimeout(() => {
         resizeToFullScreen(newImg,urlStr)
-=======
-
-    console.log(origImgWidth());
-    newImg = createDuplicateImg(e.target);
-    // resizeToFullScreen(newImg, origImgWidth());
-    newImg.style.width = `${origImgWidth()}px`;
-    console.log(newImg.style.width);
-    newImg.style.transition = "all .3s ease-in-out .5s";
-    window.setTimeout(() => {
-        resizeToFullScreen(newImg)
->>>>>>> a225deb3a68c096380871af8798972983ba5c54a
     }, 20);
 }
 
