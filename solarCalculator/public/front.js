@@ -60,7 +60,9 @@ function cleanStart() {
 
 function checkInputData() {
     let nedostaje = "";
-    let upisInputi = document.querySelectorAll("#upis input");
+    setInputs();
+    let upisInputi = document.querySelectorAll("#upis input[type=number]");
+
     upisInputi.forEach(e => provjeri(e));
 
     function provjeri(e) {
@@ -77,7 +79,8 @@ function checkInputData() {
         enableDynamicRecalculate();
         izracunavaj();
     } else if (nedostaje != "") {
-        console.log("nesto nedostaje");
+        // console.log("nesto nedostaje:", nedostaje );
+        alert(`Upiši potrošnju`);
         // alert(`UPIŠI: ${nedostaje}`);
     }
 }
@@ -92,8 +95,7 @@ function upisPotrosnjeMjeseci() {
         mjInputi.forEach((inp, bool) => disable(inp, true));
         // enable godišnji input
         godInputi.forEach((inp, bool) => disable(inp, false));
-        // preračunaj godišnji input / 12
-
+        // preračunaj godišnji input / 12, popuni inpute
     } else {
         // disable godišnji input
         godInputi.forEach((inp, bool) => disable(inp, true));
@@ -113,7 +115,7 @@ function typingGodInput() {
     function fillMjInputs(e) {
 
         if (e.target.id == "godVT") {
-            console.log("VT", e.target.value / 12);
+            // console.log("VT", e.target.value / 12);
             allInputs.forEach(inp => {
                 if (inp.id.includes("-VT")) {
                     // console.log(inp.id);
@@ -508,6 +510,6 @@ fetchBtn.addEventListener("click", (e) => {
     e.preventDefault();
     checkInputData()
 });
-// cleanStart();
 // waitForFetchData();
+cleanStart();
 typingGodInput();
