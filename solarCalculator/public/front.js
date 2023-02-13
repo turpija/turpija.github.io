@@ -52,6 +52,7 @@ function cleanStart() {
     investicija.innerHTML = "-";
     povrsinaKrova.innerHTML = "-";
     povratInvesticije.innerHTML = "-";
+    ukupnoPotroseno.innerHTML = "-";
     ukupnoPotrosenoVT.innerHTML = "-";
     ukupnoPotrosenoNT.innerHTML = "-";
     ukupnoProizvedeno.innerHTML = "-";
