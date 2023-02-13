@@ -116,7 +116,7 @@ function typingGodInput() {
             console.log("VT", e.target.value / 12);
             allInputs.forEach(inp => {
                 if (inp.id.includes("-VT")) {
-                    console.log(inp.id);
+                    // console.log(inp.id);
                     inp.value = Math.round(e.target.value / 12);
                 }
             })
@@ -302,7 +302,8 @@ const populateSolarArray = (data) => {
 
 // izrada objekta s svim podacima, ulaznim i izračunatim
 const createCalculationObject = () => {
-    let kupljenoHep = [];
+    let kupljenoHepVT = [];
+    let kupljenoHepNT = [...potrosnjaNT];
     let prodanoHep = [];
     let kupljenoIznosNT = [];
     let prodanoIznos = [];
@@ -311,18 +312,20 @@ const createCalculationObject = () => {
     for (i = 0; i < potrosnjaVT.length; i++) {
         razlika = potrosnjaVT[i] - solar[i];
         if (razlika < 0) {
-            kupljenoHep[i] = 0;
+            kupljenoHepVT[i] = 0;
             prodanoHep[i] = razlika * -1;
         } else {
-            kupljenoHep[i] = razlika;
+            kupljenoHepVT[i] = razlika;
             prodanoHep[i] = 0;
         }
     }
 
     // izračun iznosa: VT, NT i prodano 
-    let kupljenoIznosVTbezPretplate = [...kupljenoHep];
-    kupljenoIznosVTbezPretplate.forEach((item, i, arr) => {
-        arr[i] = Math.round((item * cijenaVT + item * prijenosVT + item * distVT + item * oie) * 100) / 100;
+    let IznosBezPretplate = [...kupljenoHepVT];
+    IznosBezPretplate.forEach((item, i, arr) => {
+        arr[i] = Math.round(((item * cijenaVT + item * prijenosVT + item * distVT + item * oie) +
+            (potrosnjaNT[i] * cijenaNT + potrosnjaNT[i] * prijenosNT + potrosnjaNT[i] * distNT + potrosnjaNT[i] * oie) + Number(opskrba) + Number(mjernaUsluga)
+        ) * 100) / 100;
     })
     kupljenoIznosNT = [...potrosnjaNT];
     kupljenoIznosNT.forEach((item, i, arr) => {
@@ -334,33 +337,37 @@ const createCalculationObject = () => {
     })
 
     // izračun dijela računa s VT iznosom umanjen za prodani dio, izračun pretplate
-    let kupljenoIznosVT = [...kupljenoIznosVTbezPretplate];
+    let iznosUkupno = [...IznosBezPretplate];
     let pretplata = 0;
-    kupljenoIznosVT.forEach((item, i, arr) => {
-        const rez = kupljenoIznosVTbezPretplate[i] - prodanoIznos[i];
+    iznosUkupno.forEach((item, i, arr) => {
+        const rez = IznosBezPretplate[i] - prodanoIznos[i];
         if (rez > 0 && pretplata <= 0) {
-            kupljenoIznosVT[i] = rez;
+            iznosUkupno[i] = rez;
         } else if (rez > 0 && pretplata > 0) {
             if (rez >= pretplata) {
-                kupljenoIznosVT[i] = rez - pretplata;
+                iznosUkupno[i] = rez - pretplata;
                 pretplata = 0;
             } else {
-                kupljenoIznosVT[i] = 0;
+                iznosUkupno[i] = 0;
                 pretplata = pretplata - rez;
             }
         } else if (rez <= 0) {
-            kupljenoIznosVT[i] = 0;
+            iznosUkupno[i] = 0;
             pretplata += Math.abs(rez);
         }
+        // console.log("pretplata",pretplata);
     });
 
     // izračun iznosa računa VT+NT+naknade
-    // (kupljenoIznosVT + kupljenoIznosNT + mjernaUsluga + opskrba) * pdv
-    let iznosRacuna = [...kupljenoIznosVT];
+    // (iznosUkupno + kupljenoIznosNT + mjernaUsluga + opskrba) * pdv
+    let iznosRacuna = [...iznosUkupno];
+    console.log(iznosRacuna);
     iznosRacuna.forEach((item, i, arr) => {
-        let value = (arr[i] + kupljenoIznosNT[i] + Number(mjernaUsluga) + Number(opskrba)) * (Number(pdv) / 100 + 1);
-        iznosRacuna[i] = Math.round(value * 100) / 100;
+        // let value = (item * (Number(pdv)) / 100 + 1);
+        // arr[i] = Math.round(value * 100) / 100;
+        arr[i] = Math.round((item * 1.13) * 100) / 100;
     })
+    console.log(iznosRacuna);
 
     // izračun iznosa računa prije solara
     // (potrosnjaVT * cijena + potrosnjaVT * prijenos + potrosnjaVT * distribucija + potrosnjaVT * oie
@@ -377,13 +384,13 @@ const createCalculationObject = () => {
         potrosnjaVT, // kWh potrosnja VT
         potrosnjaNT, // kWh potrosnja NT
         solar, // kWh proizvedeni
-        kupljenoHep, //kWh kupljeni od hepa
+        kupljenoHepVT, //kWh kupljeni od hepa
         prodanoHep, //kWh prodani hepu
-        kupljenoIznosVTbezPretplate, // eur VT energija, distribucija, prijenos bez prijenosa pretplaćenog dijela
+        IznosBezPretplate, // eur VT energija, distribucija, prijenos bez prijenosa pretplaćenog dijela
         kupljenoIznosNT, // eur NT energija, distribucija, prijenos
         prodanoIznos, // eur prodano hepu
-        kupljenoIznosVT, // eur VT dijela, umanjen za prodani dio
-        pretplata, // eur pretplata na kraju godine - treba biti 0
+        iznosUkupno, // 
+        pretplata, // eur pretplata na kraju godine
         iznosRacuna, // eur iznos racuna, VT+NT+naknade+pdv
         iznosRacunaBezSolara // eur iznos racuna bez solarne elektrane, VT+NT+naknade+pdv
     };
@@ -396,14 +403,14 @@ const createTable = (obj) => {
 
     table.innerHTML = "";
 
-    let data = [obj.monthNames, obj.potrosnjaVT, obj.potrosnjaNT, obj.solar, obj.kupljenoHep, obj.prodanoHep, obj.iznosRacuna, obj.iznosRacunaBezSolara];
-    let columnNames = ["Mjesec", "Potrošeno VT (kWh)", "Potrošeno NT (kWh)", "Proizvedno solar (kWh)", "Kupljeno od HEPa (kWh)", "Prodano HEPu (kWh)", "Iznos računa (eur)", "...prije solara (eur)"];
+    let data = [obj.monthNames, obj.potrosnjaVT, obj.potrosnjaNT, obj.solar, obj.kupljenoHepVT, obj.prodanoHep, obj.iznosRacuna, obj.iznosRacunaBezSolara];
+    let columnNames = ["Mjesec", "Potrošeno VT (kWh)", "Potrošeno NT (kWh)", "Proizvedno solar (kWh)", "Kupljeno od HEPa VT (kWh)", "Prodano HEPu (kWh)", "Iznos računa (eur)", "...prije solara (eur)"];
     let footerArr = [
         "UKUPNO:",
         obj.potrosnjaVT.reduce((sum, curr) => sum + curr),
         obj.potrosnjaNT.reduce((sum, curr) => sum + curr),
         obj.solar.reduce((sum, curr) => sum + curr),
-        obj.kupljenoHep.reduce((sum, curr) => sum + curr),
+        obj.kupljenoHepVT.reduce((sum, curr) => sum + curr),
         obj.prodanoHep.reduce((sum, curr) => sum + curr),
         Math.round((obj.iznosRacuna.reduce((sum, curr) => sum + curr)) * 100) / 100,
         Math.round((obj.iznosRacunaBezSolara.reduce((sum, curr) => sum + curr)) * 100) / 100,
