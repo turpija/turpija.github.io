@@ -36,14 +36,13 @@ function resizeToFullScreen(newImg, urlStr) {
         console.log("after img resize ... do some tricks")
         //image fade
         window.setTimeout(() => {
-            newImg.style.opacity = 0;
+            newImg.style.display = "none";
             goToUrl();
         }, 500);
     };
 
     //open url
     function goToUrl() {
-        newImg.style.display = "none";
         window.open(urlStr, "_self");
     }
     newImg.addEventListener("transitionend", afterImageScale);
