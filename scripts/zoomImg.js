@@ -29,6 +29,8 @@ function resizeToFullScreen(newImg, urlStr) {
     newImg.style.left = "0px";
     newImg.style.top = `${window.pageYOffset}px`;
     newImg.style.width = `${document.body.clientWidth}px`;
+    newImg.style.opacity = 0;
+
 
     // after image scale transitioned
     function afterImageScale(e) {
@@ -38,7 +40,7 @@ function resizeToFullScreen(newImg, urlStr) {
         window.setTimeout(() => {
             newImg.style.display = "none";
             goToUrl();
-        }, 500);
+        }, 200);
     };
 
     //open url
@@ -66,7 +68,14 @@ function clickedImage(e) {
     // console.log(origImgWidth());
     newImg = createDuplicateImg(e.target);
     newImg.style.width = `${origImgWidth()}px`;
-    newImg.style.transition = "all .5s ease .3s";
+    newImg.style.opacity = 1;
+    newImg.style.transition = "left 1.5s, top 1.5s, width 1.5s, opacity 2.5s";
+    newImg.style.transitionTimingFunction = "ease";
+
+
+
+
+    // newImg.style.transitionTimingFunction = "ease";
     newImg.url = origImg.dataset.url;
     window.setTimeout(() => {
         resizeToFullScreen(newImg, urlStr)
