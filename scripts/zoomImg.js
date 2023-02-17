@@ -43,8 +43,8 @@ function resizeToFullScreen(newImg, urlStr) {
 
     //open url
     function goToUrl() {
+        newImg.style.display = "none";
         window.open(urlStr, "_self");
-        // newImg.style.display = "none";
     }
     newImg.addEventListener("transitionend", afterImageScale);
 
