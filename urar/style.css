@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.clock {
+    position: relative;
+    width: 80vw;
+    height: 80vw;
+    border: 1px solid grey;
+}
+
+.hr,
+.min,
+.sec {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    transform-origin: 50% 105%;
+    z-index: 2;
+    background-color: #000000;
+    transition: transform .2s ease-in;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0,0.2);
+}
+
+.hr {
+    height: 25%;
+    width: 5px;
+}
+
+.min {
+    height: 30%;
+    width: 3px;
+}
+
+.sec {
+    width: 2px;
+    height: 40%;
+}

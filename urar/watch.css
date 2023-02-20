@@ -1,0 +1,105 @@
+:root {
+    --speed: 1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 20px;
+}
+
+.watch {
+    z-index: 0;
+    width: 600px;
+    border: 1px solid grey;
+}
+
+svg {}
+
+svg * {
+    transition: all 1s ease;
+}
+
+/* layer7 animation - minute */
+#anim-tik  {
+    transform-origin: 437px 752px;
+    animation: tik calc(var(--speed)*1s) infinite;
+
+}
+
+@keyframes tik {
+    0% {
+        transform: rotate(-5deg);
+    }
+    
+    50% {
+        transform: rotate(+5deg);
+    }
+    100% {
+        transform: rotate(-5deg);
+    }
+}
+
+#anim-vel_4 {
+    transform-origin: 483.8px 709.3px;
+    animation: rotateL calc(var(--speed)*60s) steps(100) infinite;
+}
+
+
+
+
+#anim-mal_4 {
+    transform-origin: 372px 814px;
+    
+    animation: tikSpring calc(var(--speed)*4s) ease-in-out infinite;
+}
+
+@keyframes tikSpring {
+    0% {
+        transform: rotate(-180deg);
+    }
+    50% {
+        transform: rotate(+180deg);
+    }
+    100% {
+        transform: rotate(-180deg);
+    }
+}
+
+
+/* layer10 animation - minute */
+
+#anim-vel_7 {
+    transform-origin: 372px 513px;
+    animation: rotateR calc(var(--speed)*40s) linear infinite;
+}
+
+
+#anim-mal_6 {
+    transform-origin: 318px 480.1px;
+    animation: rotateL calc(var(--speed)*10s) linear infinite;
+}
+
+@keyframes rotateR {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes rotateL {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-359deg);
+    }
+}
