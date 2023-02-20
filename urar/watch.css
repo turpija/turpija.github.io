@@ -1,5 +1,5 @@
 :root {
-    --speed: 1;
+    --speed: 3;
 }
 
 * {
@@ -23,54 +23,210 @@ svg {}
 svg * {
     transition: all 1s ease;
 }
+/* ------------------------------------------------------------- */
+/* layer3 animation -> escapement -> 1st wheel */
 
+#anim-mali {
+    transform-origin: 247.5px 585.5px;
+    animation: rotateL calc(var(--speed)*16s) linear infinite;
+
+}
+
+#anim-veliki {
+    transform-origin: 370px 631px;
+    animation: rotateR calc(var(--speed)*34s) linear infinite;
+
+}
+
+/* ------------------------------------------------------------- */
+/* layer4 animation -> escapement -> 1st wheel */
+
+#anim-mal {
+    transform-origin: 484px 709px;
+    animation: rotateL calc(var(--speed)*7s) steps(100) infinite;
+
+}
+
+#anim-vel {
+    transform-origin: 502px 642px;
+    animation: rotateR calc(var(--speed)*80s) linear infinite;
+
+}
+
+/* ------------------------------------------------------------- */
+/* layer5 animation -> escapement -> 2nd wheel */
+
+#anim-vel_2 {
+    transform-origin: 471px 555px;
+    animation: rotateR calc(var(--speed)*60s) linear infinite;
+
+}
+
+#anim-mal_2 {
+    transform-origin: 502px 642px;
+    animation: rotateL calc(var(--speed)*8s) linear infinite;
+}
+
+
+
+/* ------------------------------------------------------------- */
+/* layer6 animation -> escapement -> 3rd wheel */
+
+
+#anim-vel_3 {
+    transform-origin: 247.5px 585.5px;
+    animation: rotateR calc(var(--speed)*8s) linear infinite;
+
+}
+
+#anim-mal_3 {
+    transform-origin: 372px 513px;
+    animation: rotateL calc(var(--speed)*1s) linear calc(var(--speed)*0.2s) infinite;
+
+}
+
+/* ------------------------------------------------------------- */
 /* layer7 animation - minute */
-#anim-tik  {
-    transform-origin: 437px 752px;
-    animation: tik calc(var(--speed)*1s) infinite;
+#anim-tik {
 
+    transform-origin: 437px 752px;
+    transform: rotate(11deg);
+    animation: tik calc(var(--speed)*1s) linear calc(var(--speed)*0.5s) infinite;
 }
 
 @keyframes tik {
     0% {
-        transform: rotate(-5deg);
+        transform: rotate(11deg);
     }
-    
-    50% {
-        transform: rotate(+5deg);
+
+    23% {
+        transform: rotate(11deg);
     }
+
+    33% {
+        transform: rotate(-4deg);
+    }
+
+    72% {
+        transform: rotate(-4deg);
+    }
+
+    82% {
+        transform: rotate(11deg);
+
+    }
+
     100% {
-        transform: rotate(-5deg);
+        transform: rotate(11deg);
     }
 }
 
 #anim-vel_4 {
     transform-origin: 483.8px 709.3px;
-    animation: rotateL calc(var(--speed)*60s) steps(100) infinite;
+    /* transform: rotate(-26deg); */
+    animation: rotateTik calc(var(--speed)*1s) ease-in-out infinite;
+}
+
+@keyframes rotateTik {
+
+    0% {
+        transform: rotate(-2deg);
+    }
+
+    23% {
+        transform: rotate(-2deg);
+    }
+
+    33% {
+        transform: rotate(-14deg);
+    }
+
+    72% {
+        transform: rotate(-14deg);
+    }
+
+    82% {
+        transform: rotate(-26deg);
+    }
+
+    100% {
+        transform: rotate(-26deg);
+    }
 }
 
 
-
-
 #anim-mal_4 {
-    transform-origin: 372px 814px;
-    
-    animation: tikSpring calc(var(--speed)*4s) ease-in-out infinite;
+    transform-origin: 371px 815px;
+    transform: rotate(-30deg);
+    transform: rotate(22deg);
+    animation: tikSpring calc(var(--speed)*1s) ease-in-out calc(var(--speed)*0.5s) infinite;
 }
 
 @keyframes tikSpring {
     0% {
         transform: rotate(-180deg);
     }
+
     50% {
-        transform: rotate(+180deg);
+        transform: rotate(+172deg);
     }
+
     100% {
         transform: rotate(-180deg);
     }
 }
 
 
+
+/* ------------------------------------------------------------- */
+/* layer8 animation minute wheels */
+
+#anim-vel_5 {
+    transform-origin: 372px 513px;
+    animation: rotateR calc(var(--speed)*63s) linear infinite;
+
+}
+
+#anim-mal_5 {
+    transform-origin: 471.2px 554.7px;
+    animation: rotateL calc(var(--speed)*8s) linear infinite;
+
+}
+
+/* ------------------------------------------------------------- */
+/* layer9 animation escapement spring */
+
+#anim-vel_6 {
+    transform-origin: 370.5px 813px;
+    animation: tikSpring calc(var(--speed)*1s) ease-in-out calc(var(--speed)*.5s) infinite;
+}
+
+#anim-spring {
+    transform-origin: 370.5px 813px;
+    /* animation: tikSpring calc(var(--speed)*1s) ease-in-out calc(var(--speed)*.5s) infinite; */
+    animation: springScale calc(var(--speed)*1s) ease-in-out infinite;
+
+
+}
+
+@keyframes springScale {
+    0% {
+        transform: scale(0.8) rotate(180deg);
+    }
+
+    50% {
+        transform: scale(1.1) rotate(-165deg);
+    }
+
+    100% {
+        transform: scale(.8) rotate(180deg);
+    }
+
+
+}
+
+
+/* ------------------------------------------------------------- */
 /* layer10 animation - minute */
 
 #anim-vel_7 {

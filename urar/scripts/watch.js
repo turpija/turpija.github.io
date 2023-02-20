@@ -38,11 +38,11 @@ function focusLayers() {
     
     if (ispred > 0) {
         let blurAmount = 1;
-        let opacityAmount = 0.5;
+        let opacityAmount = 0.2;
         for (let i = active - 1; i > 0; i--) {
             blurAmount *= 1.5;
             opacityAmount /= 1.2;
-            // console.log("zabluraj layer:", i, "blurAmount=", blurAmount, "opacity:", opacityAmount);
+            console.log("zabluraj layer:", i, "blurAmount=", blurAmount, "opacity:", opacityAmount);
             const layer = watchSvg.children["mehanizam"].children[`Layer${i}`];
             blurAllChildren(layer, blurAmount, opacityAmount);
         }
@@ -53,11 +53,11 @@ function focusLayers() {
 
     if (iza > 0) {
         let blurAmount = 1;
-        let opacityAmount = 0.5;
+        let opacityAmount = 0.2;
         for (let j = active + 1; j <= 10; j++) {
             blurAmount *= 1.5;
             opacityAmount /= 1.2;
-            // console.log("zabluraj layer:", j, "blurAmount=", blurAmount, "opacity:", opacityAmount)
+            console.log("zabluraj layer:", j, "blurAmount=", blurAmount, "opacity:", opacityAmount)
             const layer = watchSvg.children["mehanizam"].children[`Layer${j}`];
             blurAllChildren(layer, blurAmount, opacityAmount);
         }
