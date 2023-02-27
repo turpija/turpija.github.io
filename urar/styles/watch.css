@@ -1,5 +1,5 @@
 :root {
-    --speed: 3;
+    --speed: 1;
 }
 
 * {
@@ -9,20 +9,36 @@
 }
 
 body {
-    padding: 20px;
+    background-color: #1C212B;
+    color: white;
 }
 
-.watch {
-    z-index: 0;
-    width: 600px;
-    border: 1px solid grey;
+.watchBackground {
+    position: absolute;
+    width: 80vw;
+    left: 50%;
+    top: 70%;
+    transform: translateY(-70%) translateX(-50%);
+    z-index: -1;
+    overflow: hidden;
+    /* display: none; */
 }
 
-svg {}
+.layerSelect {
+    position:absolute;
+    bottom: 0;
+    display: none;
+}
 
 svg * {
-    transition: all 1s ease;
+    transition: opacity 2s ease, blur 2s ease;
+    fill-opacity: 1;
 }
+
+#anim path {
+    fill: #b9c9eb;
+}
+
 /* ------------------------------------------------------------- */
 /* layer3 animation -> escapement -> 1st wheel */
 
@@ -86,7 +102,7 @@ svg * {
 }
 
 /* ------------------------------------------------------------- */
-/* layer7 animation - minute */
+/* layer7 animation -  */
 #anim-tik {
 
     transform-origin: 437px 752px;
@@ -99,11 +115,11 @@ svg * {
         transform: rotate(11deg);
     }
 
-    23% {
+    20% {
         transform: rotate(11deg);
     }
 
-    33% {
+    30% {
         transform: rotate(-4deg);
     }
 
@@ -215,7 +231,7 @@ svg * {
     }
 
     50% {
-        transform: scale(1.1) rotate(-165deg);
+        transform: scale(1) rotate(-165deg);
     }
 
     100% {

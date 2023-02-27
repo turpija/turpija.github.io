@@ -1,0 +1,61 @@
+
+
+.sat,
+.sat img#sat {
+    position: absolute;
+    width: 80vw;
+    left: 50%;
+    top: 70%;
+    transform: translateY(-70%) translateX(-50%);
+    z-index: 2;
+    filter: drop-shadow(.3rem .3rem 1rem rgba(0, 0, 0, 0.3));
+    transition: opacity 3s ease-out;
+    /* display: none; */
+}
+
+.sat #hr,
+.sat #min {
+    z-index: 10;
+    position: absolute;
+    height: 20vw;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.2));
+}
+
+.sat #hr {
+    transform-origin: 90% 90.5%;
+    transform: translateY(-200%) translateX(130%);
+}
+
+.sat #min {
+    transform-origin: 10.5% 90.5%;
+    transform: translateY(-200%) translateX(209%);
+}
+
+.sat svg path {
+    fill: #424141;
+}
+
+#downArrow {
+    z-index: 100;
+    position: absolute;
+    width: 30rem;
+    opacity: 1;
+    left: 50%;
+    bottom: 0%;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.9));
+    animation: arrow 2s ease infinite;
+}
+
+@keyframes arrow {
+    0% {
+        transform: translateY(0%);
+    }
+
+    30% {
+        transform: translateY(10%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}

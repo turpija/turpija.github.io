@@ -1,0 +1,18 @@
+.tekstContainer div {
+    z-index: 30;
+    position: fixed;
+    left: 0;
+    top: 0;
+    margin: 20px;
+    transition: all 0.5s ease-out;
+}
+
+.card {
+    transform: translateX(-10px);
+    opacity: 0;
+}
+
+.fadein {
+    opacity: 1;
+    transform: translateX(0px);
+}

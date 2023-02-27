@@ -42,3 +42,9 @@ theSvg.addEventListener("mousemove", (e) => {
 });
 
 window.addEventListener("keydown", keyPressed)
+
+
+
+
+
+/////////////////////////************** */
