@@ -13,9 +13,13 @@ body::-webkit-scrollbar {
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100vh;
+    height: var(--doc-height);
+}
+
 html {
     /* font-size: 1px; */
-    height: 100%;
 }
 
 body {
@@ -24,7 +28,7 @@ body {
     /* font-weight: 400; */
     background-color: var(--cBackground);
     color: var(--cText);
-    height: 100%;
+    
 }
 
 a {

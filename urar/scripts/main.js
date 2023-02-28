@@ -109,3 +109,11 @@ function blurElement(element, blurAmount) {
         el.style.filter = `blur(${blurAmount}px)`;
     }
 }
+
+// fix 100vh on mobile
+const documentHeight = () => {
+    const doc = document.documentElement
+    doc.style.setProperty('--doc-height', `${window.innerHeight}px`)
+   }
+   window.addEventListener("resize", documentHeight)
+   documentHeight()
