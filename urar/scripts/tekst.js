@@ -1,12 +1,10 @@
 const tekst = document.querySelector(".tekstContainer");
-const page2 = tekst.children[1]
-
 
 
 window.addEventListener("scroll", () => {
     let scrollAmount = Math.round((window.pageYOffset / window.innerHeight) * 100) / 100;
-
-    for (let i = 0; i < tekst.children.length; i++) {
+    
+    for (let i = 1; i < tekst.children.length; i++) {
         const page = tekst.children[i];
         
         if (scrollAmount > page.dataset.start && scrollAmount < page.dataset.end ) {
@@ -15,7 +13,12 @@ window.addEventListener("scroll", () => {
             page.classList.remove("fadein");
         }
     }
-
+    
+    const page1 = tekst.children[0];
+    
+    if (scrollAmount > page1.dataset.end ) {
+        page1.classList.add("fadeout");
+    }
 
 
 });

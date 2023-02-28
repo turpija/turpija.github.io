@@ -5,7 +5,7 @@
     position: absolute;
     width: 80vw;
     left: 50%;
-    top: 70%;
+    top: 65%;
     transform: translateY(-70%) translateX(-50%);
     z-index: 2;
     filter: drop-shadow(.3rem .3rem 1rem rgba(0, 0, 0, 0.3));
@@ -40,7 +40,7 @@
     position: absolute;
     width: 30rem;
     opacity: 1;
-    left: 50%;
+    left: calc(50% - 15rem);
     bottom: 0%;
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.9));
     animation: arrow 2s ease infinite;

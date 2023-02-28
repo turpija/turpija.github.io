@@ -13,8 +13,9 @@ body::-webkit-scrollbar {
     box-sizing: border-box;
 }
 
-html, body {
-    height: 70vh;
+html,
+body {
+    height: 100vh;
     /* height: var(--doc-height); */
 }
 
@@ -25,8 +26,8 @@ body {
 
 a {
     /* text-decoration: none; */
-    text-decoration-color: rgba(255, 255, 255,0.3);
- color: inherit;
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+    color: inherit;
 }
 
 .scroller {
@@ -47,6 +48,7 @@ a {
     padding: 10px 20px;
     color: rgb(106, 106, 106);
     background-color: rgba(0, 0, 0, 0.0);
+    display: none;
 }
 
 .container {
