@@ -1,5 +1,5 @@
 :root {
-    --cBackground: #1C212B;
+    --cBackground: #1c212b;
     --cText: white;
 }
 
@@ -15,7 +15,7 @@ body::-webkit-scrollbar {
 
 html {
     /* font-size: 1px; */
-
+    height: 100%;
 }
 
 body {
@@ -24,6 +24,7 @@ body {
     /* font-weight: 400; */
     background-color: var(--cBackground);
     color: var(--cText);
+    height: 100%;
 }
 
 a {
