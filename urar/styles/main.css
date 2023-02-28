@@ -14,21 +14,13 @@ body::-webkit-scrollbar {
 }
 
 html, body {
-    height: 100vh;
-    height: var(--doc-height);
-}
-
-html {
-    /* font-size: 1px; */
+    height: 70vh;
+    /* height: var(--doc-height); */
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* font-size: 16rem; */
-    /* font-weight: 400; */
     background-color: var(--cBackground);
     color: var(--cText);
-    
 }
 
 a {

@@ -1,3 +1,15 @@
+html {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1px;
+}
+
+body {
+    font-size: 16rem;
+    background-color: var(--cBackground);
+    color: var(--cText);
+}
+
+
 .tekstContainer div {
     z-index: 30;
     position: fixed;
@@ -15,4 +27,9 @@
 .fadein {
     opacity: 1;
     transform: translateX(0px);
+}
+
+
+h2, h3 {
+    font-weight: 300;
 }
