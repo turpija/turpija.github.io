@@ -21,25 +21,30 @@ window.addEventListener("scroll", () => {
 
         if (scrollIndex >= 1) {
             // ima elemenata ispred trenutnog, uzmi ih u obzir
+            let blurAmountIspred = 1;
             for (let i = scrollIndex - 1; i >= 0; i--) {
                 //  console.log(slides[i].className);
                 slides[i].style.opacity = slides[i + 1].style.opacity / 2;
+                applyBlur(slides[i], blurAmountIspred *= 1.5);
             }
         }
         // elementi iza trenutnog
+        let blurAmountIza = 1;
         for (let j = scrollIndex + 2; j < slides.length; j++) {
             slides[j].style.opacity = slides[j - 1].style.opacity / 2;
+            applyBlur(slides[j], blurAmountIza *= 1.5);
         }
 
-        info.innerHTML = `
-        fadein: ${slides[scrollIndex + 1].className}, op:${slides[scrollIndex + 1].style.opacity}   <br>
-        fadeout: ${slides[scrollIndex].className}, op:${slides[scrollIndex].style.opacity}   <br>
-            `;
+        // info.innerHTML = `
+        // fadein: ${slides[scrollIndex + 1].className}, op:${slides[scrollIndex + 1].style.opacity}   <br>
+        // fadeout: ${slides[scrollIndex].className}, op:${slides[scrollIndex].style.opacity}   <br>
+        //     `;
 
     }
 
     fadeoutStartPage(scrollAmount);
     turnRendgenLayers(scrollAmount)
+    applyBlur();
 
     info.innerHTML = `top: ${scrollAmount} <br>
     scrollIndex: ${scrollIndex} <br>
@@ -76,7 +81,9 @@ function turnRendgenLayers(scrollAmount) {
 function fadeElement(element, fadeIn, scrollDifference) {
     if (fadeIn == true) {
         element.style.opacity = scrollDifference;
+        applyBlur(element, 1 - (scrollDifference));
     } else {
+        applyBlur(element, scrollDifference);
         element.style.opacity = 1 - (scrollDifference - 0.5);
     }
 }
@@ -98,15 +105,37 @@ function fadeoutStartPage(scrollAmount) {
 
 
 
-function blurElement(element, blurAmount) {
-    console.log("applyBlur...");
+function applyBlur(element, blurAmount) {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        // true for mobile device
         // // console.log("mobile device");
     } else {
-        // false for not mobile device
         // console.log("not mobile device");
-        el.style.filter = `blur(${blurAmount}px)`;
+        
+        // get index of slides with opacity > 0.75 this one is in focus
+        // if opacity > 0.9, blur = 0
+        // next to focus item, blur +30%, end every other item +30%
+        
+        // const opacityArray = [];
+        
+        // for (let i = 0; i < slides.length; i++) {
+            //     opacityArray.push(Number(slides[i].style.opacity));
+            // }
+            
+            // const highestOpacity = Math.max(...opacityArray);
+            // const highestOpacityIndex = opacityArray.indexOf(highestOpacity);
+            
+            // console.log("highestOpacity", highestOpacity);
+            // console.log("highestOpacityIndex", highestOpacityIndex);
+            
+            // // if layer in focus, blur = 0
+            // if(highestOpacity > 0.9 ){
+        //     slides[highestOpacityIndex].style.filter = `blur(0px)`;
+        // } 
+        
+        if (element != undefined){
+            // console.log("applyBlur...",element);
+            element.style.filter = `blur(${blurAmount}px)`;
+        }
     }
 }
 
@@ -114,6 +143,6 @@ function blurElement(element, blurAmount) {
 const documentHeight = () => {
     const doc = document.documentElement
     doc.style.setProperty('--doc-height', `${window.innerHeight}px`)
-   }
-   window.addEventListener("resize", documentHeight)
-   documentHeight()
+}
+window.addEventListener("resize", documentHeight)
+documentHeight()

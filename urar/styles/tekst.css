@@ -1,106 +1,142 @@
 html {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1px;
 }
 
 body {
-    font-size: 16rem;
-    background-color: var(--cBackground);
-    color: var(--cText);
+  font-size: 16rem;
+  background-color: var(--cBackground);
+  color: var(--cText);
 }
 
 .tekstContainer div {
-    z-index: 30;
-    position: fixed;
-    left: 0;
-    top: 0;
-    margin: 20px;
-    transition: all 0.5s ease-out;
-    background-color: rgba(28, 33, 43, 0.5);
+  width: calc(100vw - 40px);
+  z-index: 30;
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 20px;
+  transition: all 0.5s ease-out;
+  background-color: rgba(28, 33, 43, 0.5);
 }
 
 .card {
-    transform: translateX(-10px);
-    opacity: 0;
-    visibility: hidden;
+  transform: translateX(-10px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.gridbox {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+
+.gridbox>h1 {
+  grid-column: 1 / span 2;
+  text-align: center;
 }
 
 .fadein {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(0px);
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0px);
 }
 
 .fadeout {
-    /* visibility: hidden; */
-    opacity: 0;
+  /* visibility: hidden; */
+  opacity: 0;
 }
 
-.adresa{
-    margin-top: 30rem;
-}
-
-h1, h2, h3 {
-    font-weight: 300;
+h1,
+h2,
+h3 {
+  font-weight: 300;
+  text-shadow: 0 0 10px white;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 li {
-    margin: 10px;
+  margin: 10px;
+  font-size: 14rem;
 }
+
 li svg {
-    vertical-align:baseline;
+  vertical-align: baseline;
 }
 
 h1 {
-    transform: scale(0.94);
-    animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  margin-bottom: 20rem;
+  transform: scale(0.94);
+  animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
 }
+
 span {
-    display: inline-block;
-    opacity: 0;
-    padding-right: 20rem;
-    filter: blur(5px);
-  }
-  
-  span:nth-child(1) {
-    animation: fade-in 1.5s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
-  }
-  
-  span:nth-child(2) {
-    animation: fade-in 1.5s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
-  }
-  
-  span:nth-child(3) {
-    animation: fade-in 1.5s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
-  }
-  
-  span:nth-child(4) {
-    animation: fade-in 1.5s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
-  }
+  display: inline-block;
+  opacity: 0;
+  padding-right: 10rem;
+  filter: blur(5px);
+}
+
+span:nth-child(1) {
+  animation: fade-in 1.5s 0.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(2) {
+  animation: fade-in 1.5s 0.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(3) {
+  animation: fade-in 1.5s 0.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+span:nth-child(4) {
+  animation: fade-in 1.5s 0.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
 @keyframes scale {
-    100% {
-      transform: scale(1);
-    }
+  100% {
+    transform: scale(1);
   }
+}
 
 @keyframes fade-in {
-    100% {
-      opacity: 1;
-      filter: blur(0);
-    }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@media screen and (min-width: 600px) {
+  body {
+    font-size: 30rem;
   }
 
-@media screen and (min-width: 600px){
-    body{
-        font-size: 30rem;
-    }
-    li>svg {
-        width: 28px;
-        height: 28px;
-    }
-    
+  .gridbox {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    row-gap: 20rem;
+  }
+
+  .gridbox>h1 {
+    grid-column: 1 / span 1;
+    text-align: center;
+  }
+
+  span {
+    padding-right: 20rem;
+  }
+
+  li {
+    font-size: 30rem;
+  }
+
+  li>svg {
+    width: 28px;
+    height: 28px;
+  }
+
 }
